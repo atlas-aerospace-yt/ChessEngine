@@ -3,11 +3,11 @@ A python chess engine.
 
 ## Contents
 
-[The Project](#the-project)
-[MinMax Algorithm](#minmax-algorithm)
-[Evaluation](#evaluation)
-[Directory Structure](#directory-structure)
-[Dependencies](#dependencies)
+[The Project](#the-project)</br>
+[MinMax Algorithm](#minmax-algorithm)</br>
+[Evaluation](#evaluation)</br>
+[Directory Structure](#directory-structure)</br>
+[Dependencies](#dependencies)</br>
 
 ## The Project
 Currently the code is under heavy development in the most early of stages.</br>
