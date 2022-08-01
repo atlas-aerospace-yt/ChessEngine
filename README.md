@@ -9,7 +9,7 @@ A python chess engine.
 ## The Project
 Currently the code is under development in the most early of stages.</br>
 The Machine Learning library is a simple one layer network, however this will be changed hopefully to a 6-8 layer DNN (Deep Neural Network) to allow for better pattern recognition which is needed for a game like chess.</br>
-
+</a>
 <a name="minmax"/>
 ## MinMax Algorithm
 This is an algorithm that works by first calculating each possible position. Then you evaluate each position with some sort of evaluation function (in this case we use the Neural Network). Now you go through the tree choosing the best options for you and the best options with the opponent.</br>
