@@ -1,8 +1,8 @@
 import chess
 import random
-from copy import deepcopy
 from MachineLearning import DeepLearn
-from FileManager import FileManager
+from copy import deepcopy
+
 
 values={"p": -1,
         "n": -3,
@@ -18,7 +18,6 @@ values={"p": -1,
         "K": 20}
 
 class Engine():
-
     def __init__(self, board=None, depth=3):
         self.board = chess.Board(board).fen() if board != None else chess.Board().fen()
         self.depth = depth
@@ -63,30 +62,12 @@ class Engine():
     def main(self):
         # Create a new depth
         self.create_new_depth()
-        # Gives the output
         print(len(self.positions[-1]))
-        #self.board = chess.Board()
-        #while True:
-        #
-        #    move = [str(item) for item in list(self.board.legal_moves)]
-        #
-        #    if len(move) == 0 or self.board.is_checkmate() or self.board.is_stalemate() or self.board.is_insufficient_material():
-        #        self.board = chess.Board()
-        #        print("Game Over")
-        #    else:
-        #        self.board.push_san(move[random.randint(0, len(move)-1)])
-        #        data = f"{self.board.fen()} {self.evaluate_position(self.board.fen())} \n"
-        #        fileManager.save_training_data(data)
-        #        print(data)
-
-
-
 
 if __name__ == "__main__":
-    fileManager = FileManager()
     deepLearn = DeepLearn()
-    engine = Engine(depth=2)
+    engine = Engine(depth=3)
 
     engine.main()
 
-    deepLearn.train()
+    #deepLearn.train()
