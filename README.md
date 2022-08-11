@@ -1,5 +1,4 @@
 # ChessEngine
-A python chess engine.
 
 ## Contents
 
