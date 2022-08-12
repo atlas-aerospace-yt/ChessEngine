@@ -83,7 +83,7 @@ class Vector():
 
     def linear_prime(x):
         if isinstance(x, Vector):
-            return Vector([float(0.5) for item in x])
+            return Vector([float(0.5) for i in range(len(x))])
 
     def sum(x):
         sum = 0

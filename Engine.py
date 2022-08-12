@@ -3,71 +3,90 @@ import random
 from MachineLearning import DeepLearn
 from copy import deepcopy
 
-
-values={"p": -1,
-        "n": -3,
-        "b": -3.5,
-        "r": -5,
-        "q": -9,
-        "k": -20,
-        "P": 1,
-        "N": 3,
-        "B": 3.5,
-        "R": 5,
-        "Q": 9,
-        "K": 20}
+## TODO: finish MinMax
+## TODO: reinforcement learning algorithm
 
 class Engine():
-    def __init__(self, board=None, depth=3):
-        self.board = chess.Board(board).fen() if board != None else chess.Board().fen()
-        self.depth = depth
-        self.positions = [[self.board]]
-        self.eval = []
+
+    def __init__(self):
+        pass
 
     def evaluate_position(self, position):
-        # Defines eval
-        eval = 0
-        # Defines material
-        material = 0
-        # Splits FEN to position and gets each piece
-        for piece in position.split(" ")[0]:
-            # Adds value if its a piece not number or /
-            material += values[piece] if piece in values else 0
-        # Adds material to eval
-        eval += material
-
+        # Converts the fen position to a vector
+        input_vector = deepLearn.fen_to_vector(position)
+        # Gets the value from the MachineLearning library
+        eval = deepLearn.predict(input_vector)
         return eval
 
-    def create_new_depth(self):
-        # For each depth
-        for i in range(0, self.depth):
+    def min_max(self, depth, fen):
+        #[
+        #  [[position 1]]
+        #  [[position 1, position2]]
+        #  [[position 1, position 2], [position 1, position 2]]
+        #  [[position 1, position 2], [position 1, position 2],[position 1, position 2], [position 1, position 2]]
+        #]
+        positions_tree = [[[fen]]]
+        for i in range(depth):
             next_depth = []
-            # Gets legal moves for each position in self.positions[-1]
-            for position in self.positions[-1]:
-                # Converts the fen in the list to a board
-                position = chess.Board(position)
-                # Calculates legal moves for every position
-                legal_moves = [str(item) for item in list(position.legal_moves)]
-                # Creates the next depth of positions
-                for move in legal_moves:
-                    # Deepcopy to prevent board being edited editing position
-                    board = deepcopy(position)
-                    # Makes the moves
-                    board.push_san(move)
-                    # Saves the new fen
-                    next_depth.append(board.fen())
-            # Adds the next depth to the positions
-            self.positions.append(next_depth)
+            position_numbers = 0
+            for position_list in positions_tree[-1]:
+                for position in position_list:
+                    position = chess.Board(position)
+                    legal_moves = [str(item) for item in list(position.legal_moves)]
+                    sub_pos_list = []
+                    for move in legal_moves:
+                        board = deepcopy(position)
+                        board.push_san(move)
+                        sub_pos_list.append(board.fen())
+                    next_depth.append(sub_pos_list)
+            positions_tree.append(next_depth)
+        print(len(positions_tree[-1]))
+
+        #print(next_depth)
+        #print(len(next_depth))
+
+        #eval_tree = [[self.evaluate_position(position) for position in position_list] for position_list in positions_tree[-1]]
+        #max = False
+        #prev_layer = []
+        #for eval_list in eval_tree:
+        #    if max:
+        #        prev_layer.append(max(eval_list))
+        #    else:
+        #        prev_layer.append(min(eval_list))
+        #
+        #print(prev_layer)
+
 
     def main(self):
-        # Create a new depth
-        self.create_new_depth()
-        print(len(self.positions[-1]))
+        # Defines the starting position
+        board = chess.Board()
+        self.min_max(4, str(board.fen()))
+        # A loop to play a game of chess
+        while True:
+            move = [str(item) for item in list(board.legal_moves)]
+
+            if len(move) == 0 or board.is_checkmate() or board.is_stalemate() or board.is_insufficient_material():
+                board = chess.Board()
+                if board.is_stalemate() or board.is_insufficient_material():
+                    print(f"Game Over: draw")
+                    return 0
+                else:
+                    print(f"Game Over: {board.turn} wins")
+                    return 0
+            else:
+                if board.turn:
+                    move = input(f"{[str(item) for item in list(board.legal_moves)]}\nPlease enter a legal move: ")
+                    board.push_san(move)
+                else:
+                    #board.push_san(move[random.randint(0, len(move)-1)])
+                    #data = f"{board.fen()} {self.evaluate_position(board.fen())} \n"
+                    #fileManager.save_training_data(data)
+                    print(board.fen())
+                    self.min_max(3, str(board.fen()))
+                print(f"{board.turn}\n{board}")
 
 if __name__ == "__main__":
     deepLearn = DeepLearn()
-    engine = Engine(depth=3)
+    engine = Engine()
 
     engine.main()
-
-    #deepLearn.train()
