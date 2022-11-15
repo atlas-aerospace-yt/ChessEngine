@@ -1,6 +1,6 @@
-<h1 align="center">Chess Engine</h1>
-
 ![pylint](https://github.com/atlas-aerospace-yt/ChessEngine/actions/workflows/pylint.yml/badge.svg)
+
+<h1 align="center">Chess Engine</h1>
 
 <h4 align="center"> DISCLAIMER: This is an on-going project which is not complete. </h4>
 
