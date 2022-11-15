@@ -2,7 +2,7 @@
 
 ![pylint](https://github.com/atlas-aerospace-yt/ChessEngine/actions/workflows/pylint.yml/badge.svg)
 
-## DISCLAIMER: This is an on-going project which is not complete.
+### DISCLAIMER: This is an on-going project which is not complete.
 
 ## Contents
 
