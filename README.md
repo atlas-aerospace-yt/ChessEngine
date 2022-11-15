@@ -1,4 +1,6 @@
-# ChessEngine
+<p align="center"># ChessEngine</p>
+
+![pylint](https://github.com/atlas-aerospace-yt/ChessEngine/actions/workflows/PyLint.yml/badge.svg)
 
 ## Contents
 
