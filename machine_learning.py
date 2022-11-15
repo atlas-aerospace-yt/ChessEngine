@@ -19,8 +19,45 @@ class Learn():
     """
 
     def __init__(self):
-        self.weight_one, self.bias_one = vec.random_vector(
-            8), vec.random_vector(8)
+
+        self.weights = self.load_weights()
+        self.biases = self.load_biases()
+
+    def load_weights(self):
+        """
+        Loads the weights for the network
+
+        TODO -> load weights from a file
+
+        Returns:
+            Vector: the weights for the network
+        """
+
+        return vec.random_vector(10)
+
+    def load_biases(self):
+        """
+        Loads the biases for the network
+
+        TODO -> load biases from a file
+
+        Returns:
+            Vector: the biases for the network
+        """
+
+        return vec.random_vector(1)
+
+    def forward_propagation(self, input_state):
+        """
+        Forward propagation predicts the output based on the input
+
+        Args:
+            input (vector): the input to recognise patterns within
+        """
+
+        output = input_state * self.weights + self.biases
+
+        return vec.sigmoid(output)
 
 
 learning = Learn()
