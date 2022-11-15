@@ -1,7 +1,8 @@
 from timeit import default_timer as timer
 from FileManager import FileManager
-from Math import Vector as v
+from vector import Vector as v
 import numpy as np
+
 
 class DeepLearn():
     def __init__(self):
@@ -14,7 +15,8 @@ class DeepLearn():
 
         self.weightOne, self.biasOne = self.fileManager.load_weights_bias(1)
         self.weightTwo, self.biasTwo = self.fileManager.load_weights_bias(2)
-        self.weightThree, self.biasThree = self.fileManager.load_weights_bias(3)
+        self.weightThree, self.biasThree = self.fileManager.load_weights_bias(
+            3)
         self.weightFour, self.biasFour = self.fileManager.load_weights_bias(4)
 
     def generate_new_network(self):
@@ -24,16 +26,20 @@ class DeepLearn():
         self.fileManager.clear_ann_data()
 
         # Initialises and saves weights
-        self.weightOne = [v.random_array(69, lower=-1, upper=1) for i in range(0, 200)]
+        self.weightOne = [v.random_array(
+            69, lower=-1, upper=1) for i in range(0, 200)]
         self.biasOne = v.random_array(200, lower=-1, upper=1)
 
-        self.weightTwo = [v.random_array(200, lower=-1, upper=1) for i in range(0, 200)]
+        self.weightTwo = [v.random_array(
+            200, lower=-1, upper=1) for i in range(0, 200)]
         self.biasTwo = v.random_array(200, lower=-1, upper=1)
 
-        self.weightThree = [v.random_array(200, lower=-1, upper=1) for i in range(0, 200)]
+        self.weightThree = [v.random_array(
+            200, lower=-1, upper=1) for i in range(0, 200)]
         self.biasThree = v.random_array(200, lower=-1, upper=1)
 
-        self.weightFour = [v.random_array(200, lower=-1, upper=1) for i in range(0, 1)]
+        self.weightFour = [v.random_array(
+            200, lower=-1, upper=1) for i in range(0, 1)]
         self.biasFour = v.random_array(1, lower=-1, upper=1)
 
         self.save_layers()
@@ -45,9 +51,12 @@ class DeepLearn():
         self.fileManager.save_weights_bias(self.weightFour, self.biasFour, 4)
 
     def predict(self, input):
-        one = v.sigmoid(v([input * node for node in self.weightOne]) + self.biasOne)
-        two = v.sigmoid(v([one * node for node in self.weightTwo]) + self.biasTwo)
-        three = v.sigmoid(v([two * node for node in self.weightThree]) + self.biasThree)
+        one = v.sigmoid(
+            v([input * node for node in self.weightOne]) + self.biasOne)
+        two = v.sigmoid(
+            v([one * node for node in self.weightTwo]) + self.biasTwo)
+        three = v.sigmoid(
+            v([two * node for node in self.weightThree]) + self.biasThree)
         return float(v.sigmoid(v([three * node for node in self.weightFour]) + self.biasFour))
 
     def train(self):
@@ -55,22 +64,34 @@ class DeepLearn():
         for i in range(50):
             alpha = 0.05
 
-            one = v.sigmoid(v([input * node for node in self.weightOne]) + self.biasOne)
-            two = v.sigmoid(v([one * node for node in self.weightTwo]) + self.biasTwo)
-            three = v.sigmoid(v([two * node for node in self.weightThree]) + self.biasThree)
-            four = v.sigmoid(v([three * node for node in self.weightFour]) + self.biasFour)
+            one = v.sigmoid(
+                v([input * node for node in self.weightOne]) + self.biasOne)
+            two = v.sigmoid(
+                v([one * node for node in self.weightTwo]) + self.biasTwo)
+            three = v.sigmoid(
+                v([two * node for node in self.weightThree]) + self.biasThree)
+            four = v.sigmoid(
+                v([three * node for node in self.weightFour]) + self.biasFour)
 
             C_Four = (four - output) * (2 * 1 / 5)
 
-            wFourGrad, bFourGrad, C_Three = self.weightGradient_biasGradient_outputGradient(C_Four, v.sigmoid_prime(four), three, self.weightFour)
-            wThreeGrad, bThreeGrad, C_Two = self.weightGradient_biasGradient_outputGradient(C_Three, v.sigmoid_prime(three), two, self.weightThree)
-            wTwoGrad, bTwoGrad, C_One = self.weightGradient_biasGradient_outputGradient(C_Two, v.sigmoid_prime(two), one, self.weightTwo)
-            wOneGrad, bOneGrad = self.weightGradient_biasGradient_outputGradient(C_One, v.sigmoid_prime(one), input)
+            wFourGrad, bFourGrad, C_Three = self.weightGradient_biasGradient_outputGradient(
+                C_Four, v.sigmoid_prime(four), three, self.weightFour)
+            wThreeGrad, bThreeGrad, C_Two = self.weightGradient_biasGradient_outputGradient(
+                C_Three, v.sigmoid_prime(three), two, self.weightThree)
+            wTwoGrad, bTwoGrad, C_One = self.weightGradient_biasGradient_outputGradient(
+                C_Two, v.sigmoid_prime(two), one, self.weightTwo)
+            wOneGrad, bOneGrad = self.weightGradient_biasGradient_outputGradient(
+                C_One, v.sigmoid_prime(one), input)
 
-            self.weightFour = [self.weightFour[i] - wFourGrad[i] * alpha for i in range(len(self.weightFour))]
-            self.weightThree = [self.weightThree[i] - wThreeGrad[i] * alpha for i in range(len(self.weightThree))]
-            self.weightTwo = [self.weightTwo[i] - wTwoGrad[i] * alpha for i in range(len(self.weightTwo))]
-            self.weightOne = [self.weightOne[i] - wOneGrad[i] * alpha for i in range(len(self.weightOne))]
+            self.weightFour = [self.weightFour[i] - wFourGrad[i]
+                               * alpha for i in range(len(self.weightFour))]
+            self.weightThree = [self.weightThree[i] - wThreeGrad[i]
+                                * alpha for i in range(len(self.weightThree))]
+            self.weightTwo = [self.weightTwo[i] - wTwoGrad[i]
+                              * alpha for i in range(len(self.weightTwo))]
+            self.weightOne = [self.weightOne[i] - wOneGrad[i]
+                              * alpha for i in range(len(self.weightOne))]
 
             self.biasFour = self.biasFour - bFourGrad * alpha
             self.biasThree = self.biasThree - bThreeGrad * alpha
@@ -79,8 +100,9 @@ class DeepLearn():
 
     def fen_to_vector(self, fen):
         # Dictionary definitions
-        values={"p": -1,"n": -3,"b": -3.5,"r": -5,"q": -9,"k": -20,"P": 1,"N": 3,"B": 3.5,"R": 5,"Q": 9,"K": 20}
-        turn={"w":1,"b":-1}
+        values = {"p": -1, "n": -3, "b": -3.5, "r": -5, "q": -9,
+                  "k": -20, "P": 1, "N": 3, "B": 3.5, "R": 5, "Q": 9, "K": 20}
+        turn = {"w": 1, "b": -1}
         # Gets the FEN position
         board = fen.split(" ")[0].split("/")
         output = []
@@ -106,7 +128,8 @@ class DeepLearn():
     def weightGradient_biasGradient_outputGradient(self, C_aL, aL_zL, zL_wL, zL_aLOne=None):
         weightGradient = []
         for n in range(len(C_aL)):
-            weightGradient.append(v([C_aL[n] * aL_zL[n] * zL_wL[i] for i in range(len(zL_wL))]))
+            weightGradient.append(
+                v([C_aL[n] * aL_zL[n] * zL_wL[i] for i in range(len(zL_wL))]))
         biasGradient = v([C_aL[n] * aL_zL[n] for n in range(len(C_aL))])
         if zL_aLOne != None:
             outputGradient = []
