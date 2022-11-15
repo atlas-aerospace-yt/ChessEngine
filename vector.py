@@ -35,19 +35,19 @@ class Vector():
     def __sub__(self, other):
         if isinstance(other, Vector) and len(self.vector) == len(other):
             return Vector([float(self.vector[i]) - float(other[i]) for i in range(len(self))])
-        elif isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, int) or isinstance(other, float):
             return Vector([(float(self[i]) - other) for i in range(len(self))])
-        else:
-            raise Exception(f"Error subtracting: \
+
+        raise Exception(f"Error subtracting: \
 could not subtract length {len(self.vector)} from length {len(other)}")
 
     def __add__(self, other):
         if isinstance(other, Vector) and len(self.vector) == len(other):
             return Vector([float(self.vector[i]) + float(other[i]) for i in range(len(self))])
-        elif isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, int) or isinstance(other, float):
             return Vector([float(self.vector[i]) + other for i in range(len(self))])
-        else:
-            raise Exception(f"Error adding: \
+
+        raise Exception(f"Error adding: \
 could not add length {len(self.vector)} with length {len(other)}")
 
     def __mul__(self, other):
@@ -56,15 +56,16 @@ could not add length {len(self.vector)} with length {len(other)}")
             for index, value in enumerate(self.vector):
                 sum_ans += float(value * other[index])
             return Vector(sum_ans)
-        elif isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, int) or isinstance(other, float):
             return Vector([float(self.vector[i]) * other for i in range(len(self.vector))])
-        else:
-            raise Exception(f"Error multiplying: \
+
+        raise Exception(f"Error multiplying: \
 could not multiply length {len(self.vector)} with length {len(other)}")
 
     def __getitem__(self, index):
         if index < len(self.vector) and index >= 0:
             return self.vector[index]
+
         raise Exception(f"Error: \
 Invalid index {index} for vector with length {len(self.vector)}")
 
