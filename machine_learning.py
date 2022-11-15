@@ -1,3 +1,9 @@
+"""
+Main machine learning files
+
+This file will hold the neural network and the learning
+algorithm
+"""
 import vector as vec
 from vector import Vector as v
 
