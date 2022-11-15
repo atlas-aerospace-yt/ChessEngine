@@ -1,5 +1,7 @@
 # ChessEngine
 
+![pylint](https://github.com/atlas-aerospace-yt/ChessEngine/actions/workflows/pylint.yml/badge.svg)
+
 ## Contents
 
 [The Project](#the-project)</br>
