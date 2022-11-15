@@ -109,6 +109,8 @@ def sigmoid(num):
         return Vector([1 / (1 + E ** (-num[i])) for i in range(len(num))])
     elif isinstance(num, float) or isinstance(num, int):
         return 1 / (1 + E ** (-num))
+    else:
+        return 0
 
 
 def sigmoid_prime(num):
@@ -140,6 +142,8 @@ def linear(num):
     """
     if isinstance(Vector):
         return Vector(num * 0.5)
+    else:
+        return num * 0.5
 
 
 def linear_prime(num):
@@ -153,6 +157,8 @@ def linear_prime(num):
     """
     if isinstance(num, Vector):
         return Vector([float(0.5) for i in range(len(num))])
+    else:
+        return 0.5
 
 
 def sum_vector(num):
