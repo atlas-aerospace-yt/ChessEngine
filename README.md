@@ -2,7 +2,7 @@
 
 <h1 align="center">Chess Engine</h1>
 
-<h4 align="center"> DISCLAIMER: This is an on-going project which is not complete. </h4>
+<h4 align="center"> DISCLAIMER: This is an on-going project which is not complete.
 
 ## Contents
 
@@ -11,7 +11,7 @@
 [MinMax Algorithm](#minmax-algorithm)</br>
 [Evaluation](#evaluation)</br>
 [Directory Structure](#directory-structure)</br>
-
+ </h4>
 ## The Project
 
 Currently the code is under heavy development in the most early of stages.</br>
