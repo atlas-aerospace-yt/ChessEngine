@@ -2,6 +2,8 @@
 
 ![pylint](https://github.com/atlas-aerospace-yt/ChessEngine/actions/workflows/pylint.yml/badge.svg)
 
+## DISCLAIMER: This is an on-going project which is not complete.
+
 ## Contents
 
 [The Project](#the-project)</br>
@@ -15,7 +17,7 @@
 Currently the code is under heavy development in the most early of stages.</br>
 The Machine Learning library is a simple one layer network, however this will be changed hopefully to a 6-8 layer DNN (Deep Neural Network) to allow for better pattern recognition which is needed for a game like chess.</br>
 The MinMax code has also not been started yet. However, I would like to include alpha beta pruning as currently, the code is very slow taking a long time to see just four moves deep.</br>
-The FileManger is just to keep track of files so files arent being modified in seperate places and is easy to read - There will soon be a PseudoData file added as I will be moving to a semi-supervised algorithm.</br>
+The FileManger is just to keep track of files so files aren't being modified in separate places and is easy to read - There will soon be a PseudoData file added as I will be moving to a semi-supervised algorithm.</br>
 The math library is one of my favourite pieces of code as it makes the Neural Network maths easy...
 
 ## Vector Library
@@ -42,7 +44,7 @@ To get around this you can use methods such as alpha-beta.
 
 To evaluate chess positions, this code is programmed to use an ANN (Artificial Neural Network) which trains off of an analysis from the currently strongest open source chess engine [Stockfish](https://stockfishchess.org/).</br>
 The goal for the evaluation is to have it recognise drawing positions such as opposite coloured bishop endgames or king Vs king and pawn endgames and also for it to recognise when there is a winning player either positionally or by material.</br>
-This will also be changed to a semi-supervised learning algorithm where the code trains off of the data in `./Data/` then generates pseudo labels for unlabeled data to further train off.
+This will also be changed to a semi-supervised learning algorithm where the code trains off of the data in `./Data/` then generates pseudo labels for unlabelled data to further train off.
 
 ## Directory Structure
 ```
@@ -50,7 +52,7 @@ Engine
 |
 |-- ANN                 # Weights and biases are stored here.
 |
-|-- DaTa                # Training data goes here.
+|-- Data                # Training data goes here.
 |
 |-- Engine.py           # Main file, holds the engine class.
 |-- FileManager.py      # Controls files, saves training data and ANN data.
