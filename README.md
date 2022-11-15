@@ -1,3 +1,5 @@
+<p align="center">
+
 # ChessEngine
 
 ![pylint](https://github.com/atlas-aerospace-yt/ChessEngine/actions/workflows/pylint.yml/badge.svg)
@@ -9,6 +11,8 @@
 [Evaluation](#evaluation)</br>
 [Directory Structure](#directory-structure)</br>
 [Dependencies](#dependencies)</br>
+
+</p>
 
 ## The Project
 Currently the code is under heavy development in the most early of stages.</br>
