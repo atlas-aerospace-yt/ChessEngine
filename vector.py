@@ -35,7 +35,7 @@ class Vector():
     def __sub__(self, other):
         if isinstance(other, Vector) and len(self.vector) == len(other):
             return Vector([float(self.vector[i]) - float(other[i]) for i in range(len(self))])
-        if isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, (int, float)):
             return Vector([(float(self[i]) - other) for i in range(len(self))])
 
         raise Exception(f"Error subtracting: \
@@ -44,7 +44,7 @@ could not subtract length {len(self.vector)} from length {len(other)}")
     def __add__(self, other):
         if isinstance(other, Vector) and len(self.vector) == len(other):
             return Vector([float(self.vector[i]) + float(other[i]) for i in range(len(self))])
-        if isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, (int, float)):
             return Vector([float(self.vector[i]) + other for i in range(len(self))])
 
         raise Exception(f"Error adding: \
@@ -56,14 +56,14 @@ could not add length {len(self.vector)} with length {len(other)}")
             for index, value in enumerate(self.vector):
                 sum_ans += float(value * other[index])
             return Vector(sum_ans)
-        if isinstance(other, int) or isinstance(other, float):
+        if isinstance(other, (int, float)):
             return Vector([float(self.vector[i]) * other for i in range(len(self.vector))])
 
         raise Exception(f"Error multiplying: \
 could not multiply length {len(self.vector)} with length {len(other)}")
 
     def __getitem__(self, index):
-        if index < len(self.vector) and index >= 0:
+        if 0 <= index < len(self.vector):
             return self.vector[index]
 
         raise Exception(f"Error: \
@@ -107,10 +107,10 @@ def sigmoid(num):
     """
     if isinstance(num, Vector):
         return Vector([1 / (1 + E ** (-num[i])) for i in range(len(num))])
-    elif isinstance(num, float) or isinstance(num, int):
+    if isinstance(num, (int, float)):
         return 1 / (1 + E ** (-num))
-    else:
-        return 0
+
+    return 0
 
 
 def sigmoid_prime(num):
@@ -142,8 +142,8 @@ def linear(num):
     """
     if isinstance(Vector):
         return Vector(num * 0.5)
-    else:
-        return num * 0.5
+
+    return num * 0.5
 
 
 def linear_prime(num):
@@ -157,8 +157,8 @@ def linear_prime(num):
     """
     if isinstance(num, Vector):
         return Vector([float(0.5) for i in range(len(num))])
-    else:
-        return 0.5
+
+    return 0.5
 
 
 def sum_vector(num):
