@@ -95,7 +95,6 @@ def random_vector(num, lower=-0.1, upper=0.1):
     """
     return Vector([random.uniform(lower, upper) for i in range(num)])
 
-
 def sigmoid(num):
     """
     Applies the sigmoid function to the input
@@ -111,7 +110,6 @@ def sigmoid(num):
         return 1 / (1 + E ** (-num))
 
     return 0
-
 
 def sigmoid_prime(num):
     """
@@ -130,7 +128,6 @@ def sigmoid_prime(num):
 
     return Vector(temp_list)
 
-
 def linear(num):
     """
     Linear actvation function y=kx
@@ -145,7 +142,6 @@ def linear(num):
 
     return num * 0.5
 
-
 def linear_prime(num):
     """
     Linear actvation function y=kx
@@ -159,7 +155,6 @@ def linear_prime(num):
         return Vector([float(0.5) for i in range(len(num))])
 
     return 0.5
-
 
 def sum_vector(num):
     """
