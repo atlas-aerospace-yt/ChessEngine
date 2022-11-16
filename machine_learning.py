@@ -59,6 +59,19 @@ class Learn():
 
         return vec.sigmoid(output)
 
+    def loss_function_prime(self, array_one, array_two, num):
+        """
+        Computes the derivative of the loss function
+
+        Args:
+            array_one (vector): the first vector
+            array_two (vector): the second vector
+            num (int): number of training examples
+
+        Return:
+            int: the result
+        """
+        return (array_one - array_two) * 1 / (2 * num)
 
 learning = Learn()
 
