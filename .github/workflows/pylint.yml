@@ -23,7 +23,11 @@ jobs:
         
     - name: Analysing vector.py
       run: |
-        pylint vector.py
+        pylint ./vector/vector.py
+      run: |
+        pylint ./vector/activation.py
+      run: |
+        pylint ./vector/random.py
     
     - name: Analysing machine_learning.py
       run: |

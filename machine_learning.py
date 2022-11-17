@@ -4,81 +4,36 @@ Main machine learning files
 This file will hold the neural network and the learning
 algorithm
 
-TODO -> Re-write file_manager
 TODO -> Create a neural network
 """
 
-import vector as vec
-from vector import Vector as v
+import vector.random as random
+
+# import vector.activation as activation
+
+from vector.vector import Vector as vector
 
 
-class Learn():
-    """
-    This class holds the weights and biases as well as some operators
-    for machine learning / neural networks.
-    """
+# class Network():
+#
+#    def __init__(self):
+#
+#        self.__weights = self.set_weights()
+#        self.__biases = self.set_biases()
+#
+#    def set_weights(self):
+#
+#        return random.random_vector(10)
+#
+#    def set_biases(self):
+#
+#        return random.random_vector(10)
 
-    def __init__(self):
-
-        self.weights = self.load_weights()
-        self.biases = self.load_biases()
-
-    def load_weights(self):
-        """
-        Loads the weights for the network
-
-        TODO -> load weights from a file
-
-        Returns:
-            Vector: the weights for the network
-        """
-
-        return vec.random_vector(10)
-
-    def load_biases(self):
-        """
-        Loads the biases for the network
-
-        TODO -> load biases from a file
-
-        Returns:
-            Vector: the biases for the network
-        """
-
-        return vec.random_vector(1)
-
-    def forward_propagation(self, input_state):
-        """
-        Forward propagation predicts the output based on the input
-
-        Args:
-            input (vector): the input to recognise patterns within
-        """
-
-        output = input_state * self.weights + self.biases
-
-        return vec.sigmoid(output)
-
-    def loss_function_prime(self, array_one, array_two, num):
-        """
-        Computes the derivative of the loss function
-
-        Args:
-            array_one (vector): the first vector
-            array_two (vector): the second vector
-            num (int): number of training examples
-
-        Return:
-            int: the result
-        """
-        return (array_one - array_two) * 1 / (2 * num)
-
-learning = Learn()
 
 if __name__ == "__main__":
-    a = v([1, 2, 3, 4])
-    b = v([5, 6, 7, 8])
+    a = vector([1, 2, 3, 4])
+    b = vector([5, 6, 7, 8])
 
-    print(vec.random_vector(4))
+    print(random.random_vector(4))
 
     print(a * b)
