@@ -7,11 +7,11 @@ algorithm
 TODO -> Create a neural network
 """
 
-import vector.random as random
+from vector import random
 
 # import vector.activation as activation
 
-from vector.vector import Vector as vector
+from vector.vector import Vector
 
 
 # class Network():
@@ -31,8 +31,8 @@ from vector.vector import Vector as vector
 
 
 if __name__ == "__main__":
-    a = vector([1, 2, 3, 4])
-    b = vector([5, 6, 7, 8])
+    a = Vector([1, 2, 3, 4])
+    b = Vector([5, 6, 7, 8])
 
     print(random.random_vector(4))
 
