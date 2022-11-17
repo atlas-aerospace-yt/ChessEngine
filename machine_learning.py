@@ -9,7 +9,7 @@ TODO -> Create a neural network
 
 from vector import random
 
-# import vector.activation as activation
+# from vector import activation
 
 from vector.vector import Vector
 
@@ -18,16 +18,28 @@ from vector.vector import Vector
 #
 #    def __init__(self):
 #
-#        self.__weights = self.set_weights()
-#        self.__biases = self.set_biases()
+#        self.__weights = []
+#        self.__biases = []
 #
-#    def set_weights(self):
+#    def set_weights(self, new_weights):
+#        """
+#        sets the private object weights to the new weights
 #
-#        return random.random_vector(10)
+#        Args:
+#            new_weights (vector): defines the new weights
+#        """
 #
-#    def set_biases(self):
+#        self.__weights = new_weights
 #
-#        return random.random_vector(10)
+#    def set_biases(self, new_biases):
+#        """
+#        sets the private objext biases to the new biases
+#
+#        Args:
+#            new_biases (vector): defines the new biases
+#        """
+#
+#        self.__biases = new_biases
 
 
 if __name__ == "__main__":
