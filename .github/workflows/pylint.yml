@@ -21,12 +21,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint
         
-    - name: Analysing vector.py
+    - name: Analysing vector object
       run: |
         pylint ./vector/vector.py
+    
+    - name: Analysing activation functions
+      run: |
         pylint ./vector/activation.py
+
+    - name: Analysing random vector
+      run: |
         pylint ./vector/random.py
     
-    - name: Analysing machine_learning.py
+    - name: Analysing machine learning
       run: |
         pylint machine_learning.py
