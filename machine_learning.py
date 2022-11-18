@@ -4,13 +4,14 @@ Main machine learning files
 This file will hold the neural network and the learning
 algorithm
 
-TODO -> Create a neural network
+TODO -> Finish layer class
+TODO -> Add error handling to getters and setters
 """
 
 import sys
 
 from vector import random
-# from vector import activation
+from vector import activation
 from vector import Vector
 
 
@@ -98,15 +99,30 @@ Information:\n\
         """
         self.__biases = new_biases
 
+    def forward_propagation(self, layer_input):
+        """
+        performs forward propagation using the layer
+
+        Args:
+            layer_input (Vector): the vector which is the input into the layer
+        Return:
+            Vector: the result of the forward pass
+        """
+        prediction = Vector([layer_input * node for node in self.__weights])
+        prediction += self.__biases
+        prediction = activation.sigmoid(prediction)
+
+        return prediction
+
 if __name__ == "__main__":
 
     layer = Layer(10, 1)
 
     print(layer)
 
-    #a = Vector([1, 2, 3, 4])
-    #b = Vector([5, 6, 7, 8])
+    a = Vector([1, 2, 3, 4])
+    b = Vector([5, 6, 7, 8])
 
-    #print(random.random_vector(4))
+    print(random.random_vector(4))
 
-    #print(a * b)
+    print(a * b)
