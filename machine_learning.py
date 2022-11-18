@@ -114,15 +114,31 @@ Information:\n\
 
         return prediction
 
+    def backwards_propagation(self, layer_output, layer_input, cost_derivative):
+        """
+        performs the backwards propagation calculation
+
+        Args:
+            layer_output (Vector): the predicted output of the layer
+            layer_input (Vector): the input that caused the prediction
+            cost_derivative (Vector): the cost / output gradient
+        Returns:
+            Vector: bias gradient
+            Vector: weight gradient
+        """
+
+        weight_gradient = layer_input * activation.sigmoid_prime(layer_output) * cost_derivative
+        bias_gradient = activation.sigmoid_prime(layer_output) * cost_derivative
+
+        return bias_gradient, weight_gradient
+
 if __name__ == "__main__":
 
     layer = Layer(10, 1)
 
-    print(layer)
+    print(layer.forward_propagation(random.random_vector(10)))
 
     a = Vector([1, 2, 3, 4])
     b = Vector([5, 6, 7, 8])
-
-    print(random.random_vector(4))
 
     print(a * b)
