@@ -2,7 +2,7 @@
 main file to test the libraries while under development
 """
 
-from network import Layer
+from network.layer import Layer
 from vector import activation
 from vector import Vector
 
