@@ -39,7 +39,14 @@ class Layer():
         return (self.__weights[index], self.__biases[index])
 
     def __str__(self):
+        """
+        converts the layer into an easy to read string
 
+        TODO -> add more info about layer to string
+
+        return:
+            string: the information about the layer
+        """
         display_weights = ""
 
         for value in self.__weights:
