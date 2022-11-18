@@ -33,6 +33,10 @@ jobs:
       run: |
         pylint ./vector/random.py
     
-    - name: Analysing machine learning
+    - name: Analysing layers
       run: |
-        pylint machine_learning.py
+        pylint ./network/layer.py
+
+    -name: Analysing networks
+      run: |
+        pylint ./network/__init__.py
