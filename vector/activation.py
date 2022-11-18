@@ -2,7 +2,7 @@
 Holds mathematical activation functions for vector objects.
 """
 
-from vector.vector import Vector
+from vector import Vector
 
 E = 2.718281828459
 PI = 3.141592653589

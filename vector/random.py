@@ -6,7 +6,7 @@ Generally intended to be used to randomly select initial weights and biases of a
 
 import random
 
-from vector.vector import Vector
+from vector import Vector
 
 
 def random_vector(num, lower=-0.1, upper=0.1):
