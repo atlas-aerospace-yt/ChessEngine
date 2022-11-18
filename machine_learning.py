@@ -7,10 +7,10 @@ algorithm
 TODO -> Create a neural network
 """
 
+import sys
+
 from vector import random
-
 # from vector import activation
-
 from vector import Vector
 
 
@@ -42,8 +42,6 @@ class Layer():
         """
         converts the layer into an easy to read string
 
-        TODO -> add more info about layer to string
-
         return:
             string: the information about the layer
         """
@@ -52,8 +50,13 @@ class Layer():
         for value in self.__weights:
             display_weights += f"{str(value)}\n"
 
-        return f"weights: {display_weights}\n\
-biases: {self.__biases}\n"
+        return f"Weights: {display_weights}\n\
+Biases: {self.__biases}\n\n\
+Information:\n\
+    size of weights: {sys.getsizeof(self.__weights)} bytes\n\
+    size of biases: {sys.getsizeof(self.__biases)} bytes\n\
+    number of input nodes: {len(self.__weights[0])}\n\
+    number of output nodes: {len(self.__biases)}"
 
     @property
     def weights(self):
@@ -101,9 +104,9 @@ if __name__ == "__main__":
 
     print(layer)
 
-    a = Vector([1, 2, 3, 4])
-    b = Vector([5, 6, 7, 8])
+    #a = Vector([1, 2, 3, 4])
+    #b = Vector([5, 6, 7, 8])
 
-    print(random.random_vector(4))
+    #print(random.random_vector(4))
 
-    print(a * b)
+    #print(a * b)
