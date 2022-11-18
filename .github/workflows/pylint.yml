@@ -23,7 +23,7 @@ jobs:
         
     - name: Analysing vector object
       run: |
-        pylint ./vector/vector.py
+        pylint ./vector/__init__.py
     
     - name: Analysing activation functions
       run: |
