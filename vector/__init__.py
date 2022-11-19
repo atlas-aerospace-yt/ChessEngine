@@ -13,59 +13,93 @@ Raises:
 
 class Vector():
     """
-    Vector class
-
     Designed to create a vector object to be used by the main program
+
+    Attributes:
+        vector (list): the vector
+    Methods:
+        sum:
+            returns:
+                float: the summ of all values in the vector
     """
 
     def __init__(self, vector):
-        self.vector = vector if isinstance(vector, list) else [vector]
+        self.__vector = vector if isinstance(vector, list) else [vector]
 
     def __sub__(self, other):
-        if isinstance(other, Vector) and len(self.vector) == len(other):
-            return Vector([float(self.vector[i]) - float(other[i]) for i in range(len(self))])
+        if isinstance(other, Vector) and len(self.__vector) == len(other):
+            return Vector([float(self.__vector[i]) - float(other[i]) for i in range(len(self))])
         if isinstance(other, (int, float)):
             return Vector([(float(self[i]) - other) for i in range(len(self))])
 
         raise Exception(f"Error subtracting: \
-could not subtract length {len(self.vector)} from length {len(other)}")
+could not subtract length {len(self.__vector)} from length {len(other)}")
 
     def __add__(self, other):
-        if isinstance(other, Vector) and len(self.vector) == len(other):
-            return Vector([float(self.vector[i]) + float(other[i]) for i in range(len(self))])
+        if isinstance(other, Vector) and len(self.__vector) == len(other):
+            return Vector([float(self.__vector[i]) + float(other[i]) for i in range(len(self))])
         if isinstance(other, (int, float)):
-            return Vector([float(self.vector[i]) + other for i in range(len(self))])
+            return Vector([float(self.__vector[i]) + other for i in range(len(self))])
 
         raise Exception(f"Error adding: \
-could not add length {len(self.vector)} with length {len(other)}")
+could not add length {len(self.__vector)} with length {len(other)}")
 
     def __mul__(self, other):
-        if isinstance(other, Vector) and len(self.vector) == len(other):
+        if isinstance(other, Vector) and len(self.__vector) == len(other):
             sum_ans = 0
-            for index, value in enumerate(self.vector):
+            for index, value in enumerate(self.__vector):
                 sum_ans += float(value * other[index])
             return Vector(sum_ans)
         if isinstance(other, (int, float)):
-            return Vector([float(self.vector[i]) * other for i in range(len(self.vector))])
+            return Vector([float(self.__vector[i]) * other for i in range(len(self.__vector))])
 
         raise Exception(f"Error multiplying: \
-could not multiply length {len(self.vector)} with length {len(other)}")
+could not multiply length {len(self.__vector)} with length {len(other)}")
 
     def __getitem__(self, index):
-        if 0 <= index < len(self.vector):
-            return self.vector[index]
+        if 0 <= index < len(self.__vector):
+            return self.__vector[index]
 
         raise Exception(f"Error index: \
-Invalid index {index} for vector with length {len(self.vector)}")
+Invalid index {index} for vector with length {len(self.__vector)}")
 
     def __len__(self):
-        return len(self.vector)
+        return len(self.__vector)
 
     def __str__(self):
-        return f"{self.vector}".replace("[", "").replace("]", "")
+        return f"{self.__vector}".replace("[", "").replace("]", "")
 
     def __float__(self):
-        return self.vector[0]
+        return self.__vector[0]
 
     def __int__(self):
-        return self.vector[0]
+        return self.__vector[0]
+
+    def sum(self):
+        """
+        Summates the whole list - important for machine learning
+
+        Returns:
+            float: the sum of all values within the list
+        """
+        return sum(self.__vector)
+
+    @property
+    def vector(self):
+        """
+        Returns the private vector object
+
+        Returns:
+            list: the vector items
+        """
+        return self.vector()
+
+    @vector.setter
+    def vector(self, new_vector):
+        """
+        Sets the value of private object vector.
+
+        Args:
+            new_vector (_type_): _description_
+        """
+        self.__vector = new_vector
