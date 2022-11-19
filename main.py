@@ -12,7 +12,7 @@ if __name__ == "__main__":
     example_two = Vector([1,0])
     example_three = Vector([0,0])
 
-    network = NeuralNetwork(2, 1, 2, 2, activation.sigmoid, activation.sigmoid_prime)
+    network = NeuralNetwork((2, 1, 2, 1), activation.sigmoid, activation.sigmoid_prime)
 
     network.cost_function_derivative(example_one, Vector([0]))
 
