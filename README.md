@@ -1,6 +1,6 @@
 ![pylint](https://github.com/atlas-aerospace-yt/ChessEngine/actions/workflows/pylint.yml/badge.svg)
 
-<p align="center"><img src=images/style.png height=270 width=480></img></p>
+<p align="center"><img src=images/style.png height=135 width=240></img></p>
 
 <h1 align="center">Chess Engine</h1>
 
