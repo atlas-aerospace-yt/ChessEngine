@@ -10,9 +10,9 @@
 
 [The Project](#the-project)</br>
 [Vector Library](#vector-library)</br>
+[Model Library](#model-library)</br>
 [MinMax Algorithm](#minmax-algorithm)</br>
 [Evaluation](#evaluation)</br>
-[Directory Structure](#directory-structure)</br>
 
 ## The Project
 
@@ -24,17 +24,50 @@ The math library is one of my favourite pieces of code as it makes the Neural Ne
 
 ## Vector Library
 
-This is a library which holds a vector object and holds functions to perform machine learning.
+```
+Vector structure:
 
-`class Vector` is a class which holds a single object `self.vector` which is a list. This class takes one object for initialisation.
+vector
+|
+|-- __init__.py     # initialisation file
+|   |
+|   |- Vector       # vector class
+|
+|-- activation.py   # holds activation functions for vector
+|
+|-- random.py       # holds the generate random vector function
+|
+```
 
-The rest of the functions within the class are built-in python operators such as `__mul__` or `__getitem__`.
+The Vector object can be imported by 'from vector import Vector' then can be used.
 
-To generate a random vector this file holds `def random_vector(length, lower=-0.1, upper=0.1)`. `length` is the length of the random vector and `lower` and `upper` are the lower and upper bounds respectively.
+To generate a random vector `from vector import random` then you can `my_vector = random.random_vector(length_of_vector)`.
 
-The library also holds `sigmoid`, `sigmoid_prime`, `linear`, and `linear_prime` which can be used as activation functions. They accept int, float, or vector.
+The activation function holds 4 functions: `sigmoid`, `sigmoig_prime`, `linear`, `linear_prime`. They all take the input of one Vector object.
 
-To summate the whole vector `sum_vector` is used which takes the input of one vector and returns an int.
+## Model Library
+
+```
+Model structure:
+
+Model
+|
+|-- __init__.py         # initialisation file
+|
+|-- layer.py
+|   |
+|   |- Layer            # layer class
+|
+|-- network.py
+|   |
+|   |- NeuralNetwork    # neural network clas
+|
+```
+
+To create a neural network import `from model.network import NeuralNetwork`. To initialise pass in `num_of_input, num_of_output, num_of_layers, num_of_nodes, activation_func`.
+This class holds the `cost_function` which can be used to calculate the cost of the network. To predict something based on the input, use the `forward_propagation` which takes one vector as the input.
+
+The network holds a list of Layers which you shouldn't need to touch.
 
 ## MinMax Algorithm
 
@@ -47,18 +80,3 @@ To get around this you can use methods such as alpha-beta.
 To evaluate chess positions, this code is programmed to use an ANN (Artificial Neural Network) which trains off of an analysis from the currently strongest open source chess engine [Stockfish](https://stockfishchess.org/).</br>
 The goal for the evaluation is to have it recognise drawing positions such as opposite coloured bishop endgames or king Vs king and pawn endgames and also for it to recognise when there is a winning player either positionally or by material.</br>
 This will also be changed to a semi-supervised learning algorithm where the code trains off of the data in `./Data/` then generates pseudo labels for unlabelled data to further train off.
-
-## Directory Structure
-```
-Engine
-|
-|-- ANN                 # Weights and biases are stored here.
-|
-|-- Data                # Training data goes here.
-|
-|-- Engine.py           # Main file, holds the engine class.
-|-- FileManager.py      # Controls files, saves training data and ANN data.
-|-- MachineLearning.py  # Contains an ANN which evaluates position from fen.
-|-- Math.py             # A custom library which does vector math.
-
-```
