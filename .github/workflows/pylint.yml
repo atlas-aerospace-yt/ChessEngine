@@ -35,8 +35,8 @@ jobs:
     
     - name: Analysing layers
       run: |
-        pylint ./network/layer.py
+        pylint ./model/layer.py
 
     - name: Analysing networks
       run: |
-        pylint ./network/__init__.py
+        pylint ./model/__init__.py
