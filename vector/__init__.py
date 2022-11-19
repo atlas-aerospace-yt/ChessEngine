@@ -63,6 +63,9 @@ could not multiply length {len(self.__vector)} with length {len(other)}")
         raise Exception(f"Error index: \
 Invalid index {index} for vector with length {len(self.__vector)}")
 
+    def __iter__(self):
+        return (i for i in self.__vector)
+
     def __len__(self):
         return len(self.__vector)
 
@@ -75,7 +78,7 @@ Invalid index {index} for vector with length {len(self.__vector)}")
     def __int__(self):
         return self.__vector[0]
 
-    def sum(self):
+    def __sum__(self):
         """
         Summates the whole list - important for machine learning
 
