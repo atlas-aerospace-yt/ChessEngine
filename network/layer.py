@@ -18,6 +18,11 @@ from vector import Vector
 class Layer():
     """
     This class holds an list of vectors which is intended to be used as a layer
+
+    Attributes:
+        weights (private list): a list of vector
+        biases (private vector): a vector to add to the layer output
+        activation_function (private function): to perform the activation
     """
 
     def __init__(self, input_amt, output_amt, activation_function):
