@@ -2,7 +2,7 @@
 Neural network class which holds all the layers of the network.
 """
 
-from network.layer import Layer
+from model.layer import Layer
 
 class NeuralNetwork:
     """
