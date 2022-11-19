@@ -34,8 +34,11 @@ def sigmoid_prime(num):
     Return:
         int or float or Vector: the result of the sigmoid prime funciton
     """
-    temp_list = []
 
+    if isinstance(num, (int, float)):
+        return sigmoid(num) * (1 - sigmoid(num))
+
+    temp_list = []
     for value in num:
         result = sigmoid(value) * (1-sigmoid(value))
         temp_list.append(result)
