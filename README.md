@@ -5,7 +5,7 @@
 <h1 align="center">Chess Engine</h1>
 
 <h4 align="center"> 
-DISCLAIMER
+DISCLAIMER</br>
 This is an on-going project which is not complete and in very early stages of development.
 </h4>
 
