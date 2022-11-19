@@ -8,26 +8,51 @@ class NeuralNetwork:
     """
     Class of a neural network
 
+    Args:
+        tuple(num_of_input, num_of_output, num_of_layers, num_of_nodes)
+        activation_func
+        derivative_func
+
     Attributes:
         network (list): Holds a list of layer objects from layer.py
         outputs (list): Holds vector which store the output of each layer
+        derivatives (list): Holds the derivatives of the cost function
+        derivative_func (function): The function needed to perform backwards propagation
 
     Methods:
         cost_function:
+            The cost function for the network. Uses the equation:
+            cost = 1 / 2n Sum((y - y_hat) ^ 2)
+
             Args:
                 inputs (list): a list of all the vector inputs
                 outputs (list): a list of all the output vector
-            Returns:
-                list: a list of Vector objects
-        forwards_propagation:
+            Return:
+                float: the sum of the cost function
+
+        cost_function_derivative:
+            All of the derivatives with the respect to the cost function are calculated here
+            and given to the private object - derivatives.
+
+            Each derivative can then be indexed simply via self.__derivatives[layer][node]
+
             Args:
-                input_vector (Vector): the input to be processed
-            Returns:
-                Vector: the predicted output
+                input_vector (Vector): the input to the network
+                output (Vector): the expected output of the network
+
+        forwards_propagation:
+            Forward propagation performs the prediction of the neural network
+
+            Args:
+                input_vector (Vector): the input vector to predict
     """
 
-    def __init__(self, num_of_input, num_of_output, num_of_layers, num_of_nodes,
-                activation_func, derivative_func):
+    def __init__(self, network_stats, activation_func, derivative_func):
+
+        num_of_input = network_stats[0]
+        num_of_layers = network_stats[1]
+        num_of_nodes = network_stats[2]
+        num_of_output = network_stats[3]
 
         first_layer = Layer(num_of_input, num_of_nodes, activation_func)
         last_layer = Layer(num_of_nodes, num_of_output, activation_func)
