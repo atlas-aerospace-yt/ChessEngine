@@ -2,7 +2,7 @@
 main file to test the libraries while under development
 """
 
-from network.network import NeuralNetwork
+from model.network import NeuralNetwork
 from vector import activation
 from vector import Vector
 
@@ -15,11 +15,11 @@ if __name__ == "__main__":
     network = NeuralNetwork(10, 1, 10, 10, activation.sigmoid)
 
     network.forward_propagation(example_one)
-    print(network.outputs)
+    print(network.outputs[-1])
     network.forward_propagation(example_two)
-    print(network.outputs)
+    print(network.outputs[-1])
     network.forward_propagation(example_three)
-    print(network.outputs)
+    print(network.outputs[-1])
 
     a = Vector([1, 2, 3, 4])
     b = Vector([5, 6, 7, 8])
