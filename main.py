@@ -14,9 +14,12 @@ if __name__ == "__main__":
 
     network = NeuralNetwork(10, 1, 10, 10, activation.sigmoid)
 
-    print(network.forward_propagation(example_one))
-    print(network.forward_propagation(example_two))
-    print(network.forward_propagation(example_three))
+    network.forward_propagation(example_one)
+    print(network.outputs)
+    network.forward_propagation(example_two)
+    print(network.outputs)
+    network.forward_propagation(example_three)
+    print(network.outputs)
 
     a = Vector([1, 2, 3, 4])
     b = Vector([5, 6, 7, 8])
