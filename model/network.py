@@ -151,18 +151,10 @@ class NeuralNetwork:
                 delc_dela.append(total)
             self.__derivatives = [delc_dela, *self.__derivatives]
 
-    def backward_propagation(self, input_vector, output_vector):
+    def update_weights(self):
         """
-        Trains the neural network.
-
-        Args:
-            input_vector (list): list of example inputs
-            output_vector (list): list of the corresponding outputs
+        Updates the networks weights
         """
-        predicted_vector = self.forward_propagation(input_vector)
-
-        self.__cost_function_derivative(predicted_vector, output_vector)
-
         weight_grad = []
         for layer, network_layer in enumerate(self.__network):
             delc_delwi = []
@@ -179,6 +171,33 @@ class NeuralNetwork:
             for node, node_grad in enumerate(list(zip(*layer_grad))):
                 self.__network[layer].weights[node] -= Vector(node_grad) * 0.1
 
+    def update_biases(self):
+        """
+        Updates the networks biases
+        """
+        bias_grad = []
+        for layer in range(len(self.__network)):
+            delc_delwi = []
+            for j in range(len(self.__derivatives[layer])):
+                temporary_answer = self.__derivative_func(self.__outputs[layer+1][j])
+                delc_delwi.append(temporary_answer * self.__derivatives[layer][j])
+            bias_grad.append(delc_delwi)
+
+        for layer in range(len(bias_grad)):
+            self.__network[layer].biases -= Vector(bias_grad) * 0.1
+
+    def backward_propagation(self, input_vector, output_vector):
+        """
+        Calls the update weights and biases functions
+
+        Args:
+            input_vector (Vector): the input to the network
+            output_vector (Vector): the wanted output
+        """
+        predicted_vector = self.forward_propagation(input_vector)
+        self.__cost_function_derivative(predicted_vector, output_vector)
+
+        self.update_weights()
     def forward_propagation(self, input_vector):
         """
         Forward propagation performs the prediction of the neural network
