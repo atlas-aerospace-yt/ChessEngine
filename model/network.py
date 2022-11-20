@@ -176,8 +176,7 @@ class NeuralNetwork:
             weight_grad.append(delc_delwi)
 
         for layer, layer_grad in enumerate(weight_grad):
-            layer_grad_transpose = list(zip(*layer_grad))
-            for node, node_grad in enumerate(layer_grad_transpose):
+            for node, node_grad in enumerate(list(zip(*layer_grad))):
                 self.__network[layer].weights[node] -= Vector(node_grad) * 0.1
 
     def forward_propagation(self, input_vector):
