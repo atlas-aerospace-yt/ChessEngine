@@ -26,8 +26,4 @@ if __name__ == "__main__":
     print(network.forward_propagation(example_two))
     print(network.forward_propagation(example_three))
 
-    a = Vector([1, 2, 3, 4])
-    b = Vector([5, 6, 7, 8])
-
-    if float(a * b) != 70.0:
-        print("Error: multiplication failed!")
+    print(network)
