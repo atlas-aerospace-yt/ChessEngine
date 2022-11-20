@@ -3,6 +3,7 @@ Neural network class which holds all the layers of the network.
 """
 
 from model.layer import Layer
+from vector import Vector
 
 class NeuralNetwork:
     """
@@ -169,10 +170,15 @@ class NeuralNetwork:
                 delc_delwj = []
                 for j in range(len(self.__derivatives[layer])):
                     temporary_answer = self.__outputs[layer][i]
-                    temporary_answer *= self.__derivative_func(self.__outputs[layer][j])
+                    temporary_answer *= self.__derivative_func(self.__outputs[layer+1][j])
                     delc_delwj.append(temporary_answer * self.__derivatives[layer][j])
                 delc_delwi.append(delc_delwj)
             weight_grad.append(delc_delwi)
+
+        for layer, layer_grad in enumerate(weight_grad):
+            layer_grad_transpose = list(zip(*layer_grad))
+            for node, node_grad in enumerate(layer_grad_transpose):
+                self.__network[layer].weights[node] -= Vector(node_grad) * 0.1
 
     def forward_propagation(self, input_vector):
         """

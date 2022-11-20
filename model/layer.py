@@ -18,10 +18,24 @@ class Layer():
     """
     This class holds an list of vectors which is intended to be used as a layer
 
+    Args:
+        input_amt (int): the number of inputs to the layer
+        output_amt (int): the number of outputs of the layer
+        activation_function (function): the activation function of the layer
+
     Attributes:
         weights (private list): a list of vector
         biases (private vector): a vector to add to the layer output
         activation_function (private function): to perform the activation
+
+    Methods:
+        forward_propagation:
+            performs forward propagation using the layer
+
+            Args:
+                layer_input (Vector): the vector which is the input into the layer
+            Return:
+                Vector: the result of the forward pass
     """
 
     def __init__(self, input_amt, output_amt, activation_function):
