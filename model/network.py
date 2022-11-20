@@ -50,9 +50,10 @@ class NeuralNetwork:
     def __init__(self, network_stats, activation_func, derivative_func):
 
         num_of_input = network_stats[0]
-        num_of_layers = network_stats[1]
-        num_of_nodes = network_stats[2]
-        num_of_output = network_stats[3]
+        num_of_output = network_stats[1]
+        num_of_layers = network_stats[2]
+        num_of_nodes = network_stats[3]
+
 
         first_layer = Layer(num_of_input, num_of_nodes, activation_func)
         last_layer = Layer(num_of_nodes, num_of_output, activation_func)
@@ -67,6 +68,20 @@ class NeuralNetwork:
 
         self.__network.append(last_layer)
 
+    def __str__(self):
+        """
+        Returns a formatted string of layers with information
+
+        Returns:
+            str: The string holding all the information of the netowrk
+        """
+        string = ""
+
+        for index, layer in enumerate(self.__network):
+            string += f"Layer {index+1}:\n\n{layer}\n\n"
+
+        return string
+
     @property
     def outputs(self):
         """
@@ -76,6 +91,16 @@ class NeuralNetwork:
             list: a list of vectors of outputs for each layer
         """
         return self.__outputs
+
+    @property
+    def network(self):
+        """
+        Gets the private variable network
+
+        Returns:
+            list: a list of layers
+        """
+        return self.__network
 
     def cost_function(self, inputs, outputs):
         """
@@ -98,7 +123,7 @@ class NeuralNetwork:
 
         print(multiplier)
 
-    def cost_function_derivative(self, input_vector, output):
+    def __cost_function_derivative(self, predicted_vector, output_vector):
         """
         All of the derivatives with the respect to the cost function are calculated here
         and given to the private object - derivatives.
@@ -106,27 +131,48 @@ class NeuralNetwork:
         Each derivative can then be indexed simply via self.__derivatives[layer][node]
 
         Args:
-            input_vector (Vector): the input to the network
+            predicted_vector (Vector): the actual output of the network
             output (Vector): the expected output of the network
         """
-        predicted = self.forward_propagation(input_vector)
 
-        self.__derivatives = [list((predicted - output) * 2)]
+        self.__derivatives = [list((predicted_vector - output_vector) * 2)]
 
         layer = len(self.__derivatives) - 1
 
         for layer in range(len(self.__network)-1):
             delc_dela = []
-            for i in range(len(self.__network[-layer])):
+            for i in range(len(self.__network[layer].weights[0])):
                 total = 0
                 for j in range(len(self.__derivatives[0])):
                     temporary_answer = self.__network[layer].weights[i][j]
-                    temporary_answer *= self.__derivative_func(self.__outputs[-layer][j])
+                    temporary_answer *= self.__derivative_func(self.__outputs[layer][j])
                     total += temporary_answer * self.__derivatives[0][j]
                 delc_dela.append(total)
             self.__derivatives = [delc_dela, *self.__derivatives]
 
-        print(self.__derivatives)
+    def backward_propagation(self, input_vector, output_vector):
+        """
+        Trains the neural network.
+
+        Args:
+            input_vector (list): list of example inputs
+            output_vector (list): list of the corresponding outputs
+        """
+        predicted_vector = self.forward_propagation(input_vector)
+
+        self.__cost_function_derivative(predicted_vector, output_vector)
+
+        weight_grad = []
+        for layer, network_layer in enumerate(self.__network):
+            delc_delwi = []
+            for i in range(len(network_layer.weights[0])):
+                delc_delwj = []
+                for j in range(len(self.__derivatives[layer])):
+                    temporary_answer = self.__outputs[layer][i]
+                    temporary_answer *= self.__derivative_func(self.__outputs[layer][j])
+                    delc_delwj.append(temporary_answer * self.__derivatives[layer][j])
+                delc_delwi.append(delc_delwj)
+            weight_grad.append(delc_delwi)
 
     def forward_propagation(self, input_vector):
         """
@@ -142,5 +188,5 @@ class NeuralNetwork:
 
             output = layer.forward_propagation(self.__outputs[-1])
             self.__outputs.append(output)
-            print(output)
+
         return self.__outputs[-1]
