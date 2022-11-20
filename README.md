@@ -1,4 +1,4 @@
-![pylint](https://github.com/atlas-aerospace-yt/ChessEngine/actions/workflows/pylint.yml/badge.svg)
+![pylint](https://github.com/atlas-aerospace-yt/ChessEngine/actions/workflows/pylint.yml/badge.svg) ![pylint](https://github.com/atlas-aerospace-yt/ChessEngine/actions/workflows/python-app.yml/badge.svg)
 
 <p align="center"><img src=images/style.png height=170 width=300></img></p>
 
