@@ -63,6 +63,9 @@ could not multiply length {len(self.__vector)} with length {len(other)}")
         raise Exception(f"Error index: \
 Invalid index {index} for vector with length {len(self.__vector)}")
 
+    def __repr__(self):
+        return f"{self.__vector}"
+
     def __iter__(self):
         return (i for i in self.__vector)
 
