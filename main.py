@@ -14,12 +14,14 @@ if __name__ == "__main__":
 
     network = NeuralNetwork((2, 1, 3, 2), activation.sigmoid, activation.sigmoid_prime)
 
-    #for i in range(0, 100):
-    #    guess = network.backward_propagation(example_one, Vector([0]))
-    #    guess = network.backward_propagation(example_two, Vector([1]))
-    guess = network.backward_propagation(example_three, Vector([0]))
-
     print(network.forward_propagation(Vector([1,1])))
+
+    for i in range(0, 1000):
+        guess = network.backward_propagation(example_one, Vector([0]))
+        guess = network.backward_propagation(example_two, Vector([1]))
+        guess = network.backward_propagation(example_three, Vector([0]))
+
+    print(network.forward_propagation(Vector([1,0])))
 
     a = Vector([1, 2, 3, 4])
     b = Vector([5, 6, 7, 8])
