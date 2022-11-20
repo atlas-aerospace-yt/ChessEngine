@@ -15,16 +15,22 @@ class Vector():
     """
     Designed to create a vector object to be used by the main program
 
+    Args:
+        vector (list): the vector object
+
     Attributes:
         vector (list): the vector
+
     Methods:
         sum:
-            returns:
-                float: the summ of all values in the vector
+            Summates the whole list - important for machine learning
+
+            Returns:
+                float: the sum of all values within the list
     """
 
     def __init__(self, vector):
-        self.__vector = vector if isinstance(vector, list) else [vector]
+        self.__vector = list(vector) if isinstance(vector, (list,tuple)) else [vector]
 
     def __sub__(self, other):
         if isinstance(other, Vector) and len(self.__vector) == len(other):
@@ -81,7 +87,7 @@ Invalid index {index} for vector with length {len(self.__vector)}")
     def __int__(self):
         return self.__vector[0]
 
-    def __sum__(self):
+    def sum(self):
         """
         Summates the whole list - important for machine learning
 
