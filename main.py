@@ -19,9 +19,9 @@ if __name__ == "__main__":
     print(network.forward_propagation(example_two))
 
     for i in range(0, 1000):
-        guess = network.backward_propagation(example_one, Vector([0]))
-        guess = network.backward_propagation(example_two, Vector([1]))
-        guess = network.backward_propagation(example_three, Vector([0]))
+        network.backward_propagation(example_one, Vector([0]))
+        network.backward_propagation(example_two, Vector([1]))
+        network.backward_propagation(example_three, Vector([0]))
 
     print(network.forward_propagation(example_two))
     print(network.forward_propagation(example_three))
