@@ -12,7 +12,7 @@ if __name__ == "__main__":
     example_two = Vector([1,0])
     example_three = Vector([0,1])
 
-    network = NeuralNetwork((2, 1, 3, 2), activation.sigmoid, activation.sigmoid_prime)
+    network = NeuralNetwork((2, 1, 10, 10), activation.sigmoid, activation.sigmoid_prime)
 
     print(network.forward_propagation(Vector([1,1])))
 
