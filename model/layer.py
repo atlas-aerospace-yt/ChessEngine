@@ -44,9 +44,6 @@ class Layer():
         """
         return (self.__weights[index], self.__biases[index])
 
-    def __len__(self):
-        return len(self.__biases)
-
     def __str__(self):
         """
         converts the layer into an easy to read string
