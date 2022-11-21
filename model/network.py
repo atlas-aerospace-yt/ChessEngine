@@ -103,7 +103,7 @@ class NeuralNetwork:
         """
         return self.__network
 
-    def cost_function(self, inputs, outputs):
+    def cost_function(self, output, predicted_output):
         """
         The cost function for the network. Uses the equation:
         cost = 1 / 2n Sum((y - y_hat) ^ 2)
@@ -114,15 +114,19 @@ class NeuralNetwork:
         Return:
             float: the sum of the cost function
         """
-        if len(inputs) != len(outputs):
+        if len(output) != len(predicted_output):
             raise Exception(f"Error: Input examples does not equal output examples. \
-{(inputs)}, {len(outputs)}!")
+{(output)}, {len(predicted_output)}!")
 
-        num_of_examples = len(inputs)
+        num_of_examples = len(output)
 
         multiplier = 1 / 2 * num_of_examples
 
-        print(multiplier)
+        total = 0
+        for index, item in enumerate(output):
+            total += sum(predicted_output[index] - item) ** 2
+
+        return multiplier * total
 
     def __cost_function_derivative(self, predicted_vector, output_vector):
         """
@@ -138,11 +142,9 @@ class NeuralNetwork:
 
         self.__derivatives = [list((predicted_vector - output_vector) * 2)]
 
-        layer = len(self.__derivatives) - 1
-
         for layer in range(len(self.__network)-1):
             delc_dela = []
-            for i in range(len(self.__network[layer].weights[0])):
+            for i in range(len(self.__network[layer].weights)):
                 total = 0
                 for j in range(len(self.__derivatives[0])):
                     temporary_answer = self.__network[layer].weights[i][j]
@@ -183,8 +185,8 @@ class NeuralNetwork:
                 delc_delwi.append(temporary_answer * self.__derivatives[layer][j])
             bias_grad.append(delc_delwi)
 
-        for layer in range(len(bias_grad)):
-            self.__network[layer].biases -= Vector(bias_grad) * 0.1
+        for layer, gradient in enumerate(bias_grad):
+            self.__network[layer].biases -= Vector(gradient) * 0.1
 
     def backward_propagation(self, input_vector, output_vector):
         """
@@ -198,6 +200,8 @@ class NeuralNetwork:
         self.__cost_function_derivative(predicted_vector, output_vector)
 
         self.update_weights()
+        self.update_biases()
+
     def forward_propagation(self, input_vector):
         """
         Forward propagation performs the prediction of the neural network
