@@ -61,6 +61,7 @@ class NeuralNetwork:
 
         self.__derivative_func = derivative_func
         self.__outputs = []
+        self.__deactivated_outputs = []
         self.__derivatives = []
         self.__network = [first_layer]
 
@@ -118,15 +119,11 @@ class NeuralNetwork:
             raise Exception(f"Error: Input examples does not equal output examples. \
 {(output)}, {len(predicted_output)}!")
 
-        num_of_examples = len(output)
-
-        multiplier = 1 / 2 * num_of_examples
-
         total = 0
         for index, item in enumerate(output):
             total += sum(predicted_output[index] - item) ** 2
 
-        return multiplier * total
+        return total
 
     def __cost_function_derivative(self, predicted_vector, output_vector):
         """
@@ -164,7 +161,7 @@ class NeuralNetwork:
                 delc_delwj = []
                 for j in range(len(self.__derivatives[layer])):
                     temporary_answer = self.__outputs[layer][i]
-                    temporary_answer *= self.__derivative_func(self.__outputs[layer+1][j])
+                    temporary_answer *= self.__derivative_func(self.__deactivated_outputs[layer+1][j])
                     delc_delwj.append(temporary_answer * self.__derivatives[layer][j])
                 delc_delwi.append(delc_delwj)
             weight_grad.append(delc_delwi)
@@ -181,7 +178,7 @@ class NeuralNetwork:
         for layer in range(len(self.__network)):
             delc_delwi = []
             for j in range(len(self.__derivatives[layer])):
-                temporary_answer = self.__derivative_func(self.__outputs[layer+1][j])
+                temporary_answer = self.__derivative_func(self.__deactivated_outputs[layer+1][j])
                 delc_delwi.append(temporary_answer * self.__derivatives[layer][j])
             bias_grad.append(delc_delwi)
 
@@ -211,10 +208,12 @@ class NeuralNetwork:
         """
 
         self.__outputs = [input_vector]
+        self.__deactivated_outputs = [input_vector]
 
         for layer in self.__network:
 
             output = layer.forward_propagation(self.__outputs[-1])
-            self.__outputs.append(output)
+            self.__deactivated_outputs.append(output[0])
+            self.__outputs.append(output[1])
 
-        return self.__outputs[-1]
+        return output[1]

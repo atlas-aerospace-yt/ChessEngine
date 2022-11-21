@@ -141,6 +141,6 @@ Information:\n\
         """
         prediction = Vector([layer_input * node for node in self.__weights])
         prediction += self.__biases
-        prediction = self.__activation_function(prediction)
+        activated_prediction = self.__activation_function(prediction)
 
-        return prediction
+        return [prediction, activated_prediction]
