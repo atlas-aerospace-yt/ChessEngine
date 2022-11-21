@@ -82,10 +82,21 @@ Invalid index {index} for vector with length {len(self.__vector)}")
         return f"{self.__vector}".replace("[", "").replace("]", "")
 
     def __float__(self):
-        return self.__vector[0]
+        if len(self.__vector) != 1:
+            raise Exception(f"Error converting: \
+Cannot convert lenght {len(self.__vector)} to float.")
+
+        return float(self.__vector[0])
 
     def __int__(self):
-        return self.__vector[0]
+        if len(self.__vector) != 1:
+            raise Exception(f"Error converting: \
+Cannot convert lenght {len(self.__vector)} to int.")
+
+        return int(self.__vector[0])
+
+    def __eq__(self, other):
+        return self.__vector == other
 
     def sum(self):
         """
