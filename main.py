@@ -28,8 +28,6 @@ if __name__ == "__main__":
 
         actual_output = [Vector(0), Vector(1), Vector(0)]
 
-        cost = network.cost_function(actual_output, predicted_output)
-
-        print(cost)
+        print(network.cost_function(actual_output, predicted_output))
 
     print(network.forward_propagation(Vector([1,0,0,0])))

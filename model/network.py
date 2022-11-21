@@ -161,7 +161,8 @@ class NeuralNetwork:
                 delc_delwj = []
                 for j in range(len(self.__derivatives[layer])):
                     temporary_answer = self.__outputs[layer][i]
-                    temporary_answer *= self.__derivative_func(self.__deactivated_outputs[layer+1][j])
+                    temporary_answer *= self.__derivative_func(
+                        self.__deactivated_outputs[layer+1][j])
                     delc_delwj.append(temporary_answer * self.__derivatives[layer][j])
                 delc_delwi.append(delc_delwj)
             weight_grad.append(delc_delwi)
