@@ -144,10 +144,10 @@ class NeuralNetwork:
 
         for layer in range(len(self.__network)-1):
             delc_dela = []
-            for i in range(len(self.__network[layer].weights)):
+            for weight in self.__network[layer].weights:
                 total = 0
                 for j in range(len(self.__derivatives[0])):
-                    temporary_answer = self.__network[layer].weights[i][j]
+                    temporary_answer = weight[j]
                     temporary_answer *= self.__derivative_func(self.__outputs[layer][j])
                     total += temporary_answer * self.__derivatives[0][j]
                 delc_dela.append(total)
