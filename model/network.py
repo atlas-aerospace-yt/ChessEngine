@@ -64,6 +64,7 @@ class NeuralNetwork:
         self.__deactivated_outputs = []
         self.__derivatives = []
         self.__network = [first_layer]
+        self.__learn_rate = 0.1
 
         for _ in range(0, num_of_layers - 2):
             self.__network.append(Layer(num_of_nodes, num_of_nodes, activation_func))
@@ -103,6 +104,20 @@ class NeuralNetwork:
             list: a list of layers
         """
         return self.__network
+
+    @property
+    def learn_rate(self):
+        """
+        Returns the current learn rate
+        """
+        return self.__learn_rate
+
+    @learn_rate.setter
+    def learn_rate(self, new_learn_rate):
+        """
+        Sets the learn rate to the new rate
+        """
+        self.__learn_rate = new_learn_rate
 
     def cost_function(self, output, predicted_output):
         """
@@ -169,7 +184,7 @@ class NeuralNetwork:
 
         for layer, layer_grad in enumerate(weight_grad):
             for node, node_grad in enumerate(list(zip(*layer_grad))):
-                self.__network[layer].weights[node] -= Vector(node_grad) * 0.1
+                self.__network[layer].weights[node] -= Vector(node_grad) * self.__learn_rate
 
     def update_biases(self):
         """
@@ -184,7 +199,7 @@ class NeuralNetwork:
             bias_grad.append(delc_delwi)
 
         for layer, gradient in enumerate(bias_grad):
-            self.__network[layer].biases -= Vector(gradient) * 0.1
+            self.__network[layer].biases -= Vector(gradient) * self.learn_rate
 
     def backward_propagation(self, input_vector, output_vector):
         """
