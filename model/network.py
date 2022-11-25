@@ -1,5 +1,8 @@
 """
 Neural network class which holds all the layers of the network.
+
+TODO: This class needs to be able to inherit different training methods
+      such as backwards propagation or random evolution.
 """
 
 from model.layer import Layer

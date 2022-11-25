@@ -15,13 +15,13 @@ if __name__ == "__main__":
     example_two = Vector([1,0,1,0])
     example_three = Vector([0,1,1,0])
 
-    EPOCH = 5000
+    EPOCH = 1000
 
-    for item in [0.05, 0.1, 0.15, 0.2, 0.5, 1.0]:
+    for item in [0.5, 1.0, 1.5]:
 
         cost = []
 
-        network = NeuralNetwork((4, 1, 5, 10), activation.sigmoid, activation.sigmoid_prime)
+        network = NeuralNetwork((4, 1, 10, 10), activation.sigmoid, activation.sigmoid_prime)
         network.learn_rate = item
 
         for i in range(EPOCH):
@@ -38,7 +38,9 @@ if __name__ == "__main__":
 
             cost.append(network.cost_function(actual_output, predicted_output))
 
-        print(network.forward_propagation(Vector([0,1,0,0])))
+            print(i)
+
+        print(network.forward_propagation(Vector([0,1,1,1])))
         print(network.forward_propagation(Vector([1,0,0,0])))
 
         plt.plot([i for i in range(EPOCH)], cost)
