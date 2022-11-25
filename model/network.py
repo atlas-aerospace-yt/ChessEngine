@@ -168,13 +168,26 @@ class NeuralNetwork:
     def update_weights(self):
         """
         Updates the networks weights
+
+        This is done using the equation:
+            delC_0 / delw_ij^L = delz_j^L / delw_jk^L * dela_j^L / delz_j^L * delC_0 / dela_j^L
+
+        https://www.youtube.com/watch?v=tIeHLnjs5U8&t=499s
         """
+
         weight_grad = []
+
+        # iterates through each layer in the network
+        # then through each node and then goes through
+        # each weight that feeds the node and calculates the
+        # gradient of the weights against the cost function
+        # j is the node and i is the weight
         for layer, network_layer in enumerate(self.__network):
             delc_delwi = []
             for i in range(len(network_layer.weights[0])):
                 delc_delwj = []
                 for j in range(len(self.__derivatives[layer])):
+                    # each derivative is in a seperate line to keep the line size small
                     temporary_answer = self.__outputs[layer][i]
                     temporary_answer *= self.__derivative_func(
                         self.__deactivated_outputs[layer+1][j])
@@ -182,6 +195,8 @@ class NeuralNetwork:
                 delc_delwi.append(delc_delwj)
             weight_grad.append(delc_delwi)
 
+        # with the gradient calculated in a multi dimensional array,
+        # we iterate through each layer and node then update the weights
         for layer, layer_grad in enumerate(weight_grad):
             for node, node_grad in enumerate(list(zip(*layer_grad))):
                 self.__network[layer].weights[node] -= Vector(node_grad) * self.__learn_rate
@@ -189,15 +204,30 @@ class NeuralNetwork:
     def update_biases(self):
         """
         Updates the networks biases
+
+        This is done using the equation:
+            delC_0 / delb_j^L = delz_j^L / delb_j^L * dela_j^L / delz_j^L * delC_0 / dela_j^L
+
+        note: delz_j^L / delb_j^L = 1
+
+        https://www.youtube.com/watch?v=tIeHLnjs5U8&t=499s
         """
+
+        # iterates through each layer in the network
+        # then through each node to calculate the gradient with
+        # respect to the cost function
+        # j is the node
         bias_grad = []
         for layer in range(len(self.__network)):
             delc_delwi = []
             for j in range(len(self.__derivatives[layer])):
+                # each derivative is in a seperate line to keep the line size small
                 temporary_answer = self.__derivative_func(self.__deactivated_outputs[layer+1][j])
                 delc_delwi.append(temporary_answer * self.__derivatives[layer][j])
             bias_grad.append(delc_delwi)
 
+        # with the gradient calculated in a multi dimensional array,
+        # we iterate through each layer to update the biases
         for layer, gradient in enumerate(bias_grad):
             self.__network[layer].biases -= Vector(gradient) * self.learn_rate
 
@@ -205,13 +235,20 @@ class NeuralNetwork:
         """
         Calls the update weights and biases functions
 
+        TODO: return a list of costs
+        TODO: loop within the function (EPOCH)
+        TODO: allow the user to pass in the data seperately or grouped
+
         Args:
             input_vector (Vector): the input to the network
             output_vector (Vector): the wanted output
         """
+
+        # gets the prediction from the network and calculates the cost derivative
         predicted_vector = self.forward_propagation(input_vector)
         self.__cost_function_derivative(predicted_vector, output_vector)
 
+        # updates the networks properties
         self.update_weights()
         self.update_biases()
 
@@ -221,13 +258,18 @@ class NeuralNetwork:
 
         Args:
             input_vector (Vector): the input vector to predict
+
+        This uses the equation:
+            z = sigmoid(w * x + b)
+
+        https://www.youtube.com/watch?v=tIeHLnjs5U8&t=499s
         """
 
         self.__outputs = [input_vector]
         self.__deactivated_outputs = [input_vector]
 
+        # iterates through each layer and performs the forward propagation calculation
         for layer in self.__network:
-
             output = layer.forward_propagation(self.__outputs[-1])
             self.__deactivated_outputs.append(output[0])
             self.__outputs.append(output[1])
