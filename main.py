@@ -6,7 +6,9 @@ TODO -> Overflow handling - more testing
 
 import matplotlib.pyplot as plt
 
+from model.back_prop import BackProp
 from model.network import NeuralNetwork
+
 from vector import Vector, activation
 
 if __name__ == "__main__":
@@ -15,13 +17,16 @@ if __name__ == "__main__":
     example_two = Vector([1,0,1,0])
     example_three = Vector([0,1,1,0])
 
+    training_method = BackProp()
+
     EPOCH = 1000
 
     for item in [0.5, 1.0, 1.5]:
 
         cost = []
 
-        network = NeuralNetwork((4, 1, 10, 10), activation.sigmoid, activation.sigmoid_prime)
+        network = NeuralNetwork((4, 1, 3, 10)
+                                , activation.sigmoid, activation.sigmoid_prime, training_method)
         network.learn_rate = item
 
         for i in range(EPOCH):
