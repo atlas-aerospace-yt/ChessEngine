@@ -1,8 +1,5 @@
 """
-Backwards propagation is a training method for neural networks
-and this file holds some of those function
-
-TODO: move any variables specific to BackProp here
+All methods of training go here to be aggregated into network
 """
 
 from vector import Vector
