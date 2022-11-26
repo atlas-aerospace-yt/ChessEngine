@@ -1,12 +1,12 @@
 """
 main file to test the libraries while under development
 
-TODO -> Overflow handling - more testing
+TODO: Overflow handling - more testing
 """
 
 import matplotlib.pyplot as plt
 
-from model.back_prop import BackProp
+from model.training_methods import BackProp
 from model.network import NeuralNetwork
 
 from vector import Vector, activation
@@ -17,22 +17,22 @@ if __name__ == "__main__":
     example_two = Vector([1,0,1,0])
     example_three = Vector([0,1,1,0])
 
-    training_method = BackProp()
+    training_method = BackProp(activation.sigmoid_prime)
 
-    EPOCH = 1000
+    EPOCH = 2000
 
     for item in [0.5, 1.0, 1.5]:
 
         cost = []
 
-        network = NeuralNetwork((4, 1, 3, 10)
-                                , activation.sigmoid, activation.sigmoid_prime, training_method)
+        network = NeuralNetwork((4, 1, 4, 10)
+                                , activation.sigmoid, training_method)
         network.learn_rate = item
 
         for i in range(EPOCH):
-            network.backward_propagation(example_one, Vector([0]))
-            network.backward_propagation(example_two, Vector([1]))
-            network.backward_propagation(example_three, Vector([0]))
+            network.train_network(example_one, Vector([0]))
+            network.train_network(example_two, Vector([1]))
+            network.train_network(example_three, Vector([0]))
 
             predicted_output = []
             predicted_output.append(network.forward_propagation(example_one))
