@@ -2,7 +2,7 @@
 Example use of this neural network library.
 This demo has 4 examples of a vector of length 4.
 Then the model trains over 750 iterations and shows the cost against epoch.
-The output for two unseen combinations are then shown.
+The output for 2 unseen combinations are then shown.
 
 TODO: Overflow handling - more testing
 """
@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     # Initialising network
     training_method = BackProp(activation.sigmoid_prime)
-    model = NeuralNetwork((4, 1, 5, 5), activation.sigmoid, training_method)
+    model = NeuralNetwork((4, 1, 6, 6), activation.sigmoid, training_method)
 
     # Training the network
     cost = model.train_network(example_inputs, example_outputs, 750)
