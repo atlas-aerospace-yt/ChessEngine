@@ -84,7 +84,7 @@ class NeuralNetwork:
             epoch(int): the number of iterations to train the network over
         """
 
-        return self.training_method.train_network(self, 
+        return self.training_method.train_network(self,
                                                   input_vector_list, output_vector_list, epoch)
 
     def forward_propagation(self, input_vector):
