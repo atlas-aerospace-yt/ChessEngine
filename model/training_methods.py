@@ -21,6 +21,17 @@ class BackProp():
         lear_rate (float): the multiplier of the gradient to modify the weights
 
     Methods:
+
+        cost_function:
+            The cost function for the network. Uses the equation:
+            cost = 1 / 2n Sum((y - y_hat) ^ 2)
+
+            Args:
+                inputs (list): a list of all the vector inputs
+                outputs (list): a list of all the output vector
+            Return:
+                float: the sum of the cost function
+
         cost_function_derivative:
             All of the derivatives with the respect to the cost function are calculated here
             and given to the private object - derivatives.
@@ -55,6 +66,15 @@ class BackProp():
 
             Args:
                 network (Network): the network which is being trained
+
+        train_network:
+            Calls the update weights and biases functions
+
+            Args:
+                network (Network): the network which is being trained
+                input_vector (list): the inputs to the network
+                output_vector (list): the wanted outputs
+                epoch(int): the number of iterations to train over
     """
 
     def __init__(self, derivative_func):
@@ -65,6 +85,24 @@ class BackProp():
         self.deactivated_outputs = []
         self.derivatives = []
         self.learn_rate = 0.1
+
+    def cost_function(self, output, predicted_output):
+        """
+        The cost function for the network. Uses the equation:
+        cost = 1 / 2n Sum((y - y_hat) ^ 2)
+
+        Args:
+            inputs (list): a list of all the vector inputs
+            outputs (list): a list of all the output vector
+        Return:
+            float: the sum of the cost function
+        """
+
+        total = 0
+        for output_item, predicted_output_item in zip(output, predicted_output):
+            total += sum(predicted_output_item - output_item) ** 2
+
+        return total
 
     def cost_function_derivative(self, network, predicted_vector, output_vector):
         """
@@ -170,24 +208,34 @@ class BackProp():
         for layer, gradient in enumerate(bias_grad):
             network.network[layer].biases -= Vector(gradient) * self.learn_rate
 
-    def train_network(self, network, input_vector, output_vector):
+    def train_network(self, network, input_vector_list, output_vector_list, epoch=100):
         """
         Calls the update weights and biases functions
 
-        TODO: return a list of costs
-        TODO: loop within the function (EPOCH)
-        TODO: allow the user to pass in the data seperately or grouped
-
         Args:
             network (Network): the network which is being trained
-            input_vector (Vector): the input to the network
-            output_vector (Vector): the wanted output
+            input_vector (list): the inputs to the network
+            output_vector (list): the wanted outputs
+            epoch(int): the number of iterations to train over
         """
+        
+        cost = []
+        # loops for each iteration
+        for _ in range(epoch):
+            # to return a list of costs we need the list of inputs and outputs
+            predicted = []
+            wanted = []
+            # goes through each input and output
+            for input_vector, output_vector in zip(input_vector_list, output_vector_list):
+                # gets the prediction from the network and calculates the cost derivative
+                predicted_vector = network.forward_propagation(input_vector)
+                self.cost_function_derivative(network, predicted_vector, output_vector)
+                # updates the networks properties
+                self.update_weights(network)
+                self.update_biases(network)
+                # adding items to the list
+                predicted.append(predicted_vector)
+                wanted.append(output_vector)
+            cost.append(self.cost_function(wanted, predicted))
 
-        # gets the prediction from the network and calculates the cost derivative
-        predicted_vector = network.forward_propagation(input_vector)
-        self.cost_function_derivative(network, predicted_vector, output_vector)
-
-        # updates the networks properties
-        self.update_weights(network)
-        self.update_biases(network)
+        return cost
