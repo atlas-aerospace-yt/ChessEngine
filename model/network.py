@@ -74,34 +74,18 @@ class NeuralNetwork:
 
         return string
 
-    def cost_function(self, output, predicted_output):
-        """
-        The cost function for the network. Uses the equation:
-        cost = 1 / 2n Sum((y - y_hat) ^ 2)
-
-        Args:
-            inputs (list): a list of all the vector inputs
-            outputs (list): a list of all the output vector
-        Return:
-            float: the sum of the cost function
-        """
-
-        total = 0
-        for output_item, predicted_output_item in zip(output, predicted_output):
-            total += sum(predicted_output_item - output_item) ** 2
-
-        return total
-
-    def train_network(self, input_vector, output_vector):
+    def train_network(self, input_vector_list, output_vector_list, epoch=100):
         """
         Trains the network using one of the classes from "training_methods.py"
 
         Args:
-            input_vector (Vector): the input to the network
-            output_vector (Vector): the wanted output
+            input_vector_list (list): the inputs to the network
+            output_vector_list (list): the wanted outputs
+            epoch(int): the number of iterations to train the network over
         """
 
-        self.training_method.train_network(self, input_vector, output_vector)
+        return self.training_method.train_network(self, 
+                                                  input_vector_list, output_vector_list, epoch)
 
     def forward_propagation(self, input_vector):
         """
