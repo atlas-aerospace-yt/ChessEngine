@@ -13,41 +13,16 @@ from vector import Vector, activation
 
 if __name__ == "__main__":
 
-    example_one = Vector([0,0,0,0])
-    example_two = Vector([1,0,1,0])
-    example_three = Vector([0,1,1,0])
+    example_inputs = [Vector([0,0,0,0]),
+                    Vector([1,0,1,0]),
+                    Vector([0,1,1,0])]
+
+    example_outputs = [Vector(0), Vector(1), Vector(0)]
 
     training_method = BackProp(activation.sigmoid_prime)
+    model = NeuralNetwork((4, 1, 5, 5), activation.sigmoid, training_method)
 
-    EPOCH = 2000
+    cost = model.train_network(example_inputs, example_outputs, 10000)
 
-    for item in [0.5, 1.0, 1.5]:
-
-        cost = []
-
-        network = NeuralNetwork((4, 1, 4, 10)
-                                , activation.sigmoid, training_method)
-        network.learn_rate = item
-
-        for i in range(EPOCH):
-            network.train_network(example_one, Vector([0]))
-            network.train_network(example_two, Vector([1]))
-            network.train_network(example_three, Vector([0]))
-
-            predicted_output = []
-            predicted_output.append(network.forward_propagation(example_one))
-            predicted_output.append(network.forward_propagation(example_two))
-            predicted_output.append(network.forward_propagation(example_three))
-
-            actual_output = [Vector(0), Vector(1), Vector(0)]
-
-            cost.append(network.cost_function(actual_output, predicted_output))
-
-            print(i)
-
-        print(network.forward_propagation(Vector([0,1,1,1])))
-        print(network.forward_propagation(Vector([1,0,0,0])))
-
-        plt.plot([i for i in range(EPOCH)], cost)
-
+    plt.plot(cost)
     plt.show()
