@@ -9,7 +9,7 @@ import random
 from vector import Vector
 
 
-def random_vector(num, lower=-0.1, upper=0.1):
+def random_vector(num, lower=-1, upper=1):
     """
     Generates a random array
 
