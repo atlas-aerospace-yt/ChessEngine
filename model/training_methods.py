@@ -84,7 +84,7 @@ class BackProp():
         self.outputs = []
         self.deactivated_outputs = []
         self.derivatives = []
-        self.learn_rate = 0.1
+        self.learn_rate = 1.0
 
     def cost_function(self, output, predicted_output):
         """
