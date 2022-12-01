@@ -54,16 +54,17 @@ if __name__ == "__main__":
     results = [1, 1, 0]
 
     # converts images to list
-    image_vectors = [image_to_vector(f"./image_recognition_example/examples/{image}") for image in examples]
+    image_vectors = [image_to_vector(
+f"./image_recognition_example/examples/{image}") for image in examples]
     result_vectors = [Vector(result) for result in results]
 
     # Initialising network
     training_method = BackProp(activation.sigmoid_prime)
-    model = NeuralNetwork((625, 1, 2, 10), activation.sigmoid, training_method)
-    model.training_method.learn_rate = 0.1
+    model = NeuralNetwork((625, 1, 3, 10), activation.sigmoid, training_method)
+    model.training_method.learn_rate = 0.5
 
     # Training the network
-    cost = model.train_network(image_vectors, result_vectors, 500)
+    cost = model.train_network(image_vectors, result_vectors, 200)
     
     print(model)
     unknown = image_to_vector("./image_recognition_example/tests/unknown.png", show=True)
