@@ -1,28 +1,45 @@
 """
 This is an example file to test image recognition using this neural network
+
+To run this file:
+    1) navigate to the "ChessEngine" directory
+    2) run the command python ./ChessEngine/image.py
+
+This file must be run from the ChessEngine directory
 """
 
 from PIL import Image
+import os
+import sys
+import matplotlib.pyplot as plt
 
-from model.network import NeuralNetwork
+parent = os.path.abspath('.')
+sys.path.insert(1, parent)
+
 from model.training_methods import BackProp
+from model.network import NeuralNetwork
+
 from vector import Vector, activation
 
-
-def image_to_vector(path):
+def image_to_vector(path, show=False):
     """
     converts image to vector
 
     Args:
         path (string): path to the file
-
+        show (bool): should the images be displayed
     Returns:
         Vector: the image in vector form
     """
+
     # gets image, resizes then converts to greyscale
     image = Image.open(path)
-    image = image.resize((100,100))
+    image = image.resize((25,25))
     grey_image = image.convert('L')
+
+    # displays the images
+    if show:
+        grey_image.show()
 
     # now the image must be converted to an image
     pixels = list(grey_image.getdata())
@@ -32,33 +49,25 @@ def image_to_vector(path):
     return Vector([item / 255 for item in [j for sub in pixels for j in sub]])
 
 if __name__ == "__main__":
-
-    examples = ["perry1.png", "perry2.png", "notperry.png"]
+    # example definitions
+    examples = ["perry1.png", "perry2.png", "notperry1.png"]
     results = [1, 1, 0]
 
-    training_method = BackProp(activation.sigmoid_prime)
-
-    EPOCH = 2500
-
-    cost = []
-
-    network = NeuralNetwork((10000, 1, 1, 1)
-                            , activation.sigmoid, training_method)
-
-    network.learn_rate = 1
-
-    image_vectors = [image_to_vector(image) for image in examples]
-
+    # converts images to list
+    image_vectors = [image_to_vector(f"./image_recognition_example/examples/{image}") for image in examples]
     result_vectors = [Vector(result) for result in results]
 
-    for i in range(EPOCH):
-        network.train_network(image_vectors[0], result_vectors[0])
-        network.train_network(image_vectors[1], result_vectors[1])
-        network.train_network(image_vectors[2], result_vectors[2])
+    # Initialising network
+    training_method = BackProp(activation.sigmoid_prime)
+    model = NeuralNetwork((625, 1, 2, 10), activation.sigmoid, training_method)
+    model.training_method.learn_rate = 0.1
 
-        print(i)
+    # Training the network
+    cost = model.train_network(image_vectors, result_vectors, 500)
+    
+    print(model)
+    unknown = image_to_vector("./image_recognition_example/tests/unknown.png", show=True)
+    print(model.forward_propagation(unknown))
 
-    print(network.forward_propagation(image_to_vector(examples[0])))
-    print(network.forward_propagation(image_to_vector(examples[1])))
-    print(network.forward_propagation(image_to_vector(examples[2])))
-    print(network.forward_propagation(image_to_vector("unknown.png")))
+    plt.plot(cost)
+    plt.show()
