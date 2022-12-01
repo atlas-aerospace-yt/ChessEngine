@@ -22,15 +22,13 @@ class NeuralNetwork:
             note: this class must be from training_methods.py
 
     Methods:
-        cost_function:
-            The cost function for the network. Uses the equation:
-            cost = 1 / 2n Sum((y - y_hat) ^ 2)
+        train_network:
+            Trains the network using one of the classes from "training_methods.py"
 
             Args:
-                inputs (list): a list of all the vector inputs
-                outputs (list): a list of all the output vector
-            Return:
-                float: the sum of the cost function
+                input_vector_list (list): the inputs to the network
+                output_vector_list (list): the wanted outputs
+                epoch(int): the number of iterations to train the network over
 
         forwards_propagation:
             Forward propagation performs the prediction of the neural network
