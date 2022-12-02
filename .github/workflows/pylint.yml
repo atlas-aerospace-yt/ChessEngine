@@ -20,19 +20,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pylint
-        
-    - name: Analysing vector object
-      run: |
-        pylint ./vector/__init__.py
-    
-    - name: Analysing activation functions
-      run: |
-        pylint ./vector/activation.py
 
-    - name: Analysing random vector
-      run: |
-        pylint ./vector/random.py
-    
     - name: Analysing layers
       run: |
         pylint ./model/layer.py
