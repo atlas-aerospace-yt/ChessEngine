@@ -3,9 +3,6 @@ Main machine learning files
 
 This file will hold the neural network and the learning
 algorithm
-
-TODO -> Finish layer class
-TODO -> Add error handling to getters and setters
 """
 
 import sys
