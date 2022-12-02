@@ -66,7 +66,7 @@ f"./image_recognition_example/examples/{image}.png") for image in examples]
 
     # Training the network
     cost = model.train_network(image_vectors, result_vectors, 50)
-    
+
     print(model)
     unknown = image_to_vector("./image_recognition_example/tests/unknown.png", show=True)
     print(model.forward_propagation(unknown))
