@@ -9,8 +9,6 @@ class BackProp():
     This class is intended to be aggregated by the main
     NeuralNetwork class in network.py
 
-    TODO: Test this file structure
-
     Attributes:
         outputs (list): the output of each layer
         deactivated_outputs (list): the output of each layer before being activated
@@ -215,11 +213,11 @@ class BackProp():
             output_vector (list): the wanted outputs
             epoch(int): the number of iterations to train over
         """
-        
+
         if len(input_vector_list) != len(output_vector_list):
             raise Exception(f"Input list of length ({len(input_vector_list)}) \
 does not equal output list length ({len(output_vector_list)})")
-        
+
         cost = []
         # loops for each iteration
         for _ in range(epoch):
