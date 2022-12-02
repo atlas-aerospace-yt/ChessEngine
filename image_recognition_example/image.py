@@ -34,7 +34,7 @@ def image_to_vector(path, show=False):
 
     # gets image, resizes then converts to greyscale
     image = Image.open(path)
-    image = image.resize((25,25))
+    image = image.resize((32,32))
     grey_image = image.convert('L')
 
     # displays the images
@@ -60,7 +60,7 @@ f"./image_recognition_example/examples/{image}") for image in examples]
 
     # Initialising network
     training_method = BackProp(activation.sigmoid_prime)
-    model = NeuralNetwork((625, 1, 3, 10), activation.sigmoid, training_method)
+    model = NeuralNetwork((1024, 1, 3, 10), activation.sigmoid, training_method)
     model.training_method.learn_rate = 0.5
 
     # Training the network
