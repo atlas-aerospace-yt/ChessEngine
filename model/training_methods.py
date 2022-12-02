@@ -216,6 +216,10 @@ class BackProp():
             epoch(int): the number of iterations to train over
         """
         
+        if len(input_vector_list) != len(output_vector_list):
+            raise Exception(f"Input list of length ({len(input_vector_list)}) \
+does not equal output list length ({len(output_vector_list)})")
+        
         cost = []
         # loops for each iteration
         for _ in range(epoch):
