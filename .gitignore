@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Ignore images
+*.png 
 
 # VI ignores
 *.swp
