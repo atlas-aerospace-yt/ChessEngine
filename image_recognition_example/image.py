@@ -65,7 +65,7 @@ f"./image_recognition_example/examples/{image}.png") for image in examples]
     model.training_method.learn_rate = 0.75
 
     # Training the network
-    cost = model.train_network(image_vectors, result_vectors, 50)
+    cost = model.train_network(image_vectors, result_vectors, 75)
 
     print(model)
     unknown = image_to_vector("./image_recognition_example/tests/unknown.png", show=True)
