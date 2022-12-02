@@ -43,8 +43,8 @@ class Layer():
         private object weights is a list of vectors
         private object biases is a vector
         """
-        self.__weights = [random.random_vector(input_amt) for _ in range(output_amt)]
-        self.__biases = random.random_vector(output_amt)
+        self.__weights = [random.random_vector(input_amt, lower=-1, upper=1) for _ in range(output_amt)]
+        self.__biases = random.random_vector(output_amt, lower=-1, upper=1)
         self.__activation_function = activation_function
 
     def __getitem__(self, index):
