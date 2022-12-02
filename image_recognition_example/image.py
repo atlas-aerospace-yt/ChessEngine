@@ -62,16 +62,16 @@ f"./image_recognition_example/examples/{image}.png") for image in examples]
     # Initialising network
     training_method = BackProp(activation.sigmoid_prime)
     model = NeuralNetwork((1024, 1, 3, 20), activation.sigmoid, training_method)
-    model.training_method.learn_rate = 0.75
+    model.training_method.learn_rate = 0.3
 
     # Training the network
-    cost = model.train_network(image_vectors, result_vectors, 50)
+    cost = model.train_network(image_vectors, result_vectors, 75)
 
     print(model)
-    unknown = image_to_vector("./image_recognition_example/tests/unknown.png", show=True)
+    unknown = image_to_vector("./image_recognition_example/tests/unknown.png")
     print(model.forward_propagation(unknown))
 
-    unknown = image_to_vector("./image_recognition_example/tests/unknown2.png", show=True)
+    unknown = image_to_vector("./image_recognition_example/tests/unknown2.png")
     print(model.forward_propagation(unknown))
 
     unknown = image_to_vector("./image_recognition_example/tests/unknown3.png", show=True)
