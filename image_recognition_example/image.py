@@ -50,24 +50,31 @@ def image_to_vector(path, show=False):
 
 if __name__ == "__main__":
     # example definitions
-    examples = ["perry1.png", "perry2.png", "notperry1.png"]
-    results = [1, 1, 0]
+    examples = ["perry1", "perry2", "perry3", "perry4", "perry5", "notperry1",
+                "notperry2", "notperry3", "notperry4"]
+    results = [1, 1, 1, 1, 1, 0, 0, 0, 0]
 
     # converts images to list
     image_vectors = [image_to_vector(
-f"./image_recognition_example/examples/{image}") for image in examples]
+f"./image_recognition_example/examples/{image}.png") for image in examples]
     result_vectors = [Vector(result) for result in results]
 
     # Initialising network
     training_method = BackProp(activation.sigmoid_prime)
-    model = NeuralNetwork((1024, 1, 3, 10), activation.sigmoid, training_method)
-    model.training_method.learn_rate = 0.5
+    model = NeuralNetwork((1024, 1, 3, 20), activation.sigmoid, training_method)
+    model.training_method.learn_rate = 0.75
 
     # Training the network
-    cost = model.train_network(image_vectors, result_vectors, 200)
+    cost = model.train_network(image_vectors, result_vectors, 50)
     
     print(model)
     unknown = image_to_vector("./image_recognition_example/tests/unknown.png", show=True)
+    print(model.forward_propagation(unknown))
+
+    unknown = image_to_vector("./image_recognition_example/tests/unknown2.png", show=True)
+    print(model.forward_propagation(unknown))
+
+    unknown = image_to_vector("./image_recognition_example/tests/unknown3.png", show=True)
     print(model.forward_propagation(unknown))
 
     plt.plot(cost)
