@@ -21,7 +21,19 @@ class ImageRecognition:
         training_method = BackProp(activation.sigmoid_prime)
         number_of_outputs = len(os.listdir(training_directory))
         network_stats = (1024, number_of_outputs, 10, 10)
+
         self.model = NeuralNetwork(network_stats, activation.sigmoid, training_method)
+        self.training_dir = training_directory
+
+    def recognise_image(self, show=False):
+        """
+        trains the neural network to recognise images
+        """
+
+        training_folders = os.listdir(self.training_dir)
+
+        for training_img in training_folders:
+            print(training_img, os.listdir(f"./{self.training_dir}\\\"{training_img}\""))
 
     def image_to_vector(self, path, show=False):
         """
