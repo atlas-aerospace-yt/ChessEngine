@@ -4,6 +4,8 @@ A wrapper file for machine learning image recognition
 
 import os
 
+import matplotlib.pyplot as plt
+
 from PIL import Image
 
 from vector import Vector, activation
@@ -34,6 +36,12 @@ class ImageRecognition:
 
         for training_img in training_folders:
             print(training_img, os.listdir(f"./{self.training_dir}\\\"{training_img}\""))
+
+        cost = []
+
+        if show:
+            plt.plot(cost)
+            plt.show()
 
     def image_to_vector(self, path, show=False):
         """
