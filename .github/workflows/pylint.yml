@@ -33,3 +33,7 @@ jobs:
     - name: Analysing networks
       run: |
         pylint ./model/network.py
+    
+    - name: Analysing image_recognition
+      run: |
+        pylint ./model/image.py
