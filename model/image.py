@@ -35,10 +35,14 @@ class ImageRecognition:
             path (str): the path to the image
 
         Returns:
-            Vector: the output of the_dir network
+            str: the name of the file that the data predicts
         """
 
-        return self.model.forward_propagation(self.image_to_vector(path))
+        # Gets the output of the network
+        out = list(self.model.forward_propagation(self.image_to_vector(path)))
+
+        # Converts the output to the name of the file
+        return os.listdir(self.training_path)[out.index(max(out))]
 
     def learn_images(self, show=False):
         """
@@ -67,8 +71,10 @@ class ImageRecognition:
             for _ in range(len(examples) - initial_len):
                 outputs.append(output)
 
+        # trains the network
         cost = self.model.train_network(examples, outputs, 5000)
 
+        # shows the cost function
         if show:
             plt.plot(cost)
             plt.show()
