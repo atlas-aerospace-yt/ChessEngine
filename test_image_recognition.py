@@ -1,4 +1,13 @@
+"""
+An example use for the image wrapper in the model library
+"""
+
+import os
+
 from model.image import ImageRecognition
 
-recogniser = ImageRecognition("")
-recogniser.recognise_image()
+recogniser = ImageRecognition(f"{os.getcwd()}\\example_data")
+recogniser.learn_images()
+
+print(recogniser.recognise(f"{os.getcwd()}\\example_data\\perry\\perry1.png"))
+print(recogniser.recognise(f"{os.getcwd()}\\example_data\\not_perry\\notperry1.png"))
