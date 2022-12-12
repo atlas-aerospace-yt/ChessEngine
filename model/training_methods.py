@@ -81,7 +81,7 @@ class BackProp():
         self.outputs = []
         self.deactivated_outputs = []
         self.derivatives = []
-        self.learn_rate = 1.0
+        self.learn_rate = 0.75
 
     def cost_function(self, output, predicted_output):
         """
@@ -215,14 +215,15 @@ class BackProp():
             output_vector (list): the wanted outputs
             epoch(int): the number of iterations to train over
         """
-        
+
         if len(input_vector_list) != len(output_vector_list):
             raise Exception(f"Input list of length ({len(input_vector_list)}) \
 does not equal output list length ({len(output_vector_list)})")
-        
+
         cost = []
         # loops for each iteration
         for _ in range(epoch):
+            print(_)
             # to return a list of costs we need the list of inputs and outputs
             predicted = []
             wanted = []
