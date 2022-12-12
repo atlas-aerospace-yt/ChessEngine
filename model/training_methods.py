@@ -223,7 +223,7 @@ does not equal output list length ({len(output_vector_list)})")
         cost = []
         # loops for each iteration
         for _ in range(epoch):
-            print(_)
+
             # to return a list of costs we need the list of inputs and outputs
             predicted = []
             wanted = []
