@@ -18,26 +18,56 @@ class ImageRecognition:
     Wrapper class for machine learning image recognition
     """
 
-    def __init__(self, training_directory):
+    def __init__(self, training_path):
 
         training_method = BackProp(activation.sigmoid_prime)
-        number_of_outputs = len(os.listdir(training_directory))
-        network_stats = (1024, number_of_outputs, 10, 10)
+        self.number_of_outputs = len(os.listdir(training_path))
+        network_stats = (1024, self.number_of_outputs, 1, 1)
 
         self.model = NeuralNetwork(network_stats, activation.sigmoid, training_method)
-        self.training_dir = training_directory
+        self.training_path = training_path
 
-    def recognise_image(self, show=False):
+    def recognise(self, path):
+        """
+        Recognises the image based off of training data
+
+        Args:
+            path (str): the path to the image
+
+        Returns:
+            Vector: the output of the_dir network
+        """
+
+        return self.model.forward_propagation(self.image_to_vector(path))
+
+    def learn_images(self, show=False):
         """
         trains the neural network to recognise images
         """
 
-        training_folders = os.listdir(self.training_dir)
+        training_folders = os.listdir(self.training_path)
 
-        for training_img in training_folders:
-            print(training_img, os.listdir(f"./{self.training_dir}\\\"{training_img}\""))
+        examples = []
+        outputs = []
 
-        cost = []
+        # gets the exampels and expected outputs
+        for index, training_img_dir in enumerate(training_folders):
+
+            initial_len = len(examples)
+
+            # computes the expected output for the file
+            output = [0 for i in range(self.number_of_outputs)]
+            output[index] = 1
+            output = Vector(output)
+
+            for file in os.listdir(f"{self.training_path}\\{training_img_dir}"):
+                examples.append(self.image_to_vector(
+                    f"{self.training_path}\\{training_img_dir}\\{file}"))
+
+            for _ in range(len(examples) - initial_len):
+                outputs.append(output)
+
+        cost = self.model.train_network(examples, outputs, 5000)
 
         if show:
             plt.plot(cost)
