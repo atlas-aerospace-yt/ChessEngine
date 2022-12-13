@@ -27,7 +27,7 @@ class ImageRecognition:
         self.model = NeuralNetwork(network_stats, activation.sigmoid, training_method)
         self.training_path = training_path
 
-    def recognise(self, path):
+    def recognise(self, path, show=False):
         """
         Recognises the image based off of training data
 
@@ -39,12 +39,13 @@ class ImageRecognition:
         """
 
         # Gets the output of the network
-        out = list(self.model.forward_propagation(self.image_to_vector(path)))
+        out = list(self.model.forward_propagation(
+            self.image_to_vector(path, show)))
 
         # Converts the output to the name of the file
         return os.listdir(self.training_path)[out.index(max(out))]
 
-    def learn_images(self, show=False):
+    def learn_images(self, show=False, iter=1000):
         """
         trains the neural network to recognise images
         """
@@ -72,7 +73,7 @@ class ImageRecognition:
                 outputs.append(output)
 
         # trains the network
-        cost = self.model.train_network(examples, outputs, 5000)
+        cost = self.model.train_network(examples, outputs, iter)
 
         # shows the cost function
         if show:
