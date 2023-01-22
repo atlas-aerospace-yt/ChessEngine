@@ -45,7 +45,7 @@ class ImageRecognition:
         # Converts the output to the name of the file
         return os.listdir(self.training_path)[out.index(max(out))]
 
-    def learn_images(self, show=False, iter=1000):
+    def learn_images(self, show=False, epoch=1000):
         """
         trains the neural network to recognise images
         """
@@ -73,7 +73,7 @@ class ImageRecognition:
                 outputs.append(output)
 
         # trains the network
-        cost = self.model.train_network(examples, outputs, iter)
+        cost = self.model.train_network(examples, outputs, epoch)
 
         # shows the cost function
         if show:
