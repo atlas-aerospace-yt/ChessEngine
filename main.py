@@ -8,11 +8,10 @@ TODO: Overflow handling - more testing
 """
 
 import matplotlib.pyplot as plt
+from vector import Vector, activation
 
 from model.training_methods import BackProp
 from model.network import NeuralNetwork
-
-from vector import Vector, activation
 
 if __name__ == "__main__":
 
