@@ -6,6 +6,7 @@ pass in a training methof from training_methods.py
 """
 
 from model.layer import Layer
+from model.file import FileManager
 
 class NeuralNetwork:
     """
@@ -39,6 +40,8 @@ class NeuralNetwork:
 
     def __init__(self, network_stats, activation_func, training_method):
 
+        self.file_manager = FileManager(network_stats)
+
         num_of_input = network_stats[0]
         num_of_output = network_stats[1]
         num_of_layers = network_stats[2]
@@ -56,6 +59,9 @@ class NeuralNetwork:
             self.network.append(Layer(num_of_nodes, num_of_nodes, activation_func))
 
         self.network.append(last_layer)
+
+        self.file_manager.save_network(self.network)
+        self.file_manager.load_network()
 
     def __str__(self):
         """
