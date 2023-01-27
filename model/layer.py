@@ -38,13 +38,21 @@ class Layer():
                 Vector: the result of the forward pass
     """
 
-    def __init__(self, input_amt, output_amt, activation_function):
+    def __init__(self, input_amt=None, output_amt=None, activation_function=None, 
+                                                            weights=[], biases=[]):
         """
         private object weights is a list of vectors
         private object biases is a vector
         """
-        self.__weights = [random.random_vector(input_amt, lower=-1, upper=1) for _ in range(
-output_amt)]
+
+        if not(input_amt or output_amt):
+            if weights and biases:
+                pass
+            else:
+                print("Error: No inputs.")
+
+        self.__weights = [random.random_vector(
+            input_amt, lower=-1, upper=1) for _ in range(output_amt)]
         self.__biases = random.random_vector(output_amt, lower=-1, upper=1)
         self.__activation_function = activation_function
 
