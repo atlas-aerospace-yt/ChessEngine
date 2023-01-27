@@ -27,7 +27,7 @@ if __name__ == "__main__":
     model = NeuralNetwork((4, 1, 6, 6), activation.sigmoid, training_method)
 
     # Training the network
-    cost = model.train_network(example_inputs, example_outputs, 750)
+    cost = model.train_network(example_inputs, example_outputs, 10000)
 
     # Outputs
     print(model)
