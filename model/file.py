@@ -32,27 +32,56 @@ class FileManager():
             list: a list of vectors which are the weights
         """
 
-        with open(self.weights_dir, "r") as weights:
+        with open(self.weights_dir, "r", encoding="UTF-8") as weights:
             data = weights.readlines()
-        if data != []: weights = self.load_weights(data)
-        print(weights)
+        if data != []:
+            weights = self.load_weights(data)
 
-        with open(self.biases_dir, "r") as biases:
+        with open(self.biases_dir, "r", encoding="UTF-8") as biases:
             data = biases.readlines()
-        if data != []: biases = self.load_biases(data)
+        if data != []:
+            biases = self.load_biases(data)
+
+        if len(biases) != len(weights):
+            print(f"Error: Dimensions do not match, {len(biases)}, {len(weights)}")
+
+        network = []
+
+        for bias, weight in zip(biases, weights):
+            network.append(Layer(bias, weight))
+
+        return network
 
     def load_weights(self, weight):
         """
         Loads the weights from a text file
-        Checks that the weights match the network dimensions
         """
         layer = []
         weights = []
         for line in weight:
-            weights.append(Vector([float(item) for item in line.strip().split(", ")]))
             if not line.strip():
                 layer.append(weights)
                 weights = []
+            else:
+                weights.append(Vector([float(item) for item in line.strip().split(", ")]))
+
+        return layer
+
+    def load_biases(self, bias):
+        """
+        Loads the biases from a text file
+
+        Args:
+            bias (list): the stroed data
+        """
+
+        layer = []
+
+        for line in bias:
+            if line.strip():
+                layer.append(Vector([float(item) for item in line.strip().split(", ")]))
+
+        return layer
 
     def save_network(self, network):
         """
@@ -62,7 +91,8 @@ class FileManager():
             network (list): a list of layers objects
         """
 
-        with open(self.weights_dir, "w") as weights, open(self.biases_dir, "w") as biases:
+        with open(self.weights_dir, "w", encoding="UTF-8") as weights, \
+                    open(self.biases_dir, "w", encoding="UTF-8") as biases:
 
             for layer in network:
 
