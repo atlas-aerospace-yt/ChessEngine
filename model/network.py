@@ -48,15 +48,15 @@ class NeuralNetwork:
         num_of_nodes = network_stats[3]
 
         # the first and last layers have a different number of inputs and outputs respectively
-        first_layer = Layer(num_of_input, num_of_nodes, activation_func)
-        last_layer = Layer(num_of_nodes, num_of_output, activation_func)
+        first_layer = Layer(activation_func, input_amt=num_of_input, output_amt=num_of_nodes)
+        last_layer = Layer(activation_func, input_amt=num_of_nodes, output_amt=num_of_output)
 
         self.network = [first_layer]
         self.training_method = training_method
 
         # iterates through the rest of the layers as they are the same
         for _ in range(0, num_of_layers - 2):
-            self.network.append(Layer(num_of_nodes, num_of_nodes, activation_func))
+            self.network.append(Layer(activation_func, input_amt=num_of_input, output_amt=num_of_nodes))
 
         self.network.append(last_layer)
 
