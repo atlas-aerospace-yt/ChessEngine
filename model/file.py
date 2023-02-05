@@ -4,7 +4,8 @@ A file handler for the model library in python
 
 import os
 
-from vector import Vector
+from vector import Vector, activation
+
 from model.layer import Layer
 
 class FileManager():
@@ -22,7 +23,6 @@ class FileManager():
         self.size = size
         self.weights_dir = f"{dir}/Weights.txt"
         self.biases_dir = f"{dir}/Biases.txt"
-        self.activation_dir = f"{dir}/Activation.txt"
 
     def load_network(self):
         """
@@ -49,7 +49,7 @@ class FileManager():
         network = []
 
         for bias, weight in zip(biases, weights):
-            network.append(Layer((weight, bias)))
+            network.append(Layer(activation.sigmoid, layer=(weight, bias)))
 
         return network
 
@@ -93,8 +93,7 @@ class FileManager():
         """
 
         with open(self.weights_dir, "w", encoding="UTF-8") as weights, \
-                    open(self.biases_dir, "w", encoding="UTF-8") as biases, \
-                        open(self.activation_dir, "w", encoding="UTF-8") as activation:
+                    open(self.biases_dir, "w", encoding="UTF-8") as biases:
 
             for layer in network:
 
@@ -102,6 +101,5 @@ class FileManager():
                     weights.write(str(weight_vector) + "\n")
                 biases.write(str(layer.biases) + "\n")
 
-                activation.write("\n")
                 weights.write("\n")
                 biases.write("\n")
