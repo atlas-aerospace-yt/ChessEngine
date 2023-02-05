@@ -56,7 +56,8 @@ class NeuralNetwork:
 
         # iterates through the rest of the layers as they are the same
         for _ in range(0, num_of_layers - 2):
-            self.network.append(Layer(activation_func, input_amt=num_of_input, output_amt=num_of_nodes))
+            self.network.append(Layer(activation_func,
+                                      input_amt=num_of_input, output_amt=num_of_nodes))
 
         self.network.append(last_layer)
 
