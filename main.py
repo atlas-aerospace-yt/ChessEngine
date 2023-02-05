@@ -5,6 +5,7 @@ Then the model trains over 750 iterations and shows the cost against epoch.
 The output for 2 unseen combinations are then shown.
 
 TODO: Overflow handling - more testing
+TODO: Find out why the inputs to NeuralNetwork seem to be the wrong way round
 """
 
 import matplotlib.pyplot as plt
@@ -24,7 +25,7 @@ if __name__ == "__main__":
 
     # Initialising network
     training_method = BackProp(activation.sigmoid_prime)
-    model = NeuralNetwork((4, 1, 6, 6), activation.sigmoid, training_method)
+    model = NeuralNetwork((4, 1, 4, 4), activation.sigmoid, training_method)
 
     # Training the network
     cost = model.train_network(example_inputs, example_outputs, 10000)
