@@ -62,7 +62,6 @@ class NeuralNetwork:
         self.network.append(last_layer)
 
         self.file_manager.save_network(self.network)
-        print(item for item in self.file_manager.load_network())
 
     def __str__(self):
         """
