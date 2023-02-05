@@ -52,8 +52,7 @@ class Layer():
                 input_amt, lower=-1, upper=1) for _ in range(output_amt)]
             self.__biases = random.random_vector(output_amt, lower=-1, upper=1)
         else:
-            print("Error: No valid arguments passed in.")
-            exit()
+            raise Exception("Error: No valid arguments passed in.")
 
         self.__activation_function = activation_function
 
